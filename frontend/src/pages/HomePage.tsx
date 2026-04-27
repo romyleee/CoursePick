@@ -20,8 +20,6 @@ const TYPE_CHIPS = [
   { emoji: '🧘', label: '웰니스' },
 ];
 
-const GUIDE_KEY = 'coursepick.guide.dismissed';
-
 export function HomePage() {
   const { session } = useSession();
   const { data: logs } = useQuery({
@@ -30,13 +28,7 @@ export function HomePage() {
     enabled: !!session,
   });
 
-  const [showGuide, setShowGuide] = useState(
-    () => localStorage.getItem(GUIDE_KEY) !== 'true',
-  );
-  const dismissGuide = () => {
-    localStorage.setItem(GUIDE_KEY, 'true');
-    setShowGuide(false);
-  };
+  const [showGuide, setShowGuide] = useState(false);
 
   const today = new Date();
   const dateStr = today.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric', weekday: 'long' });
@@ -64,11 +56,22 @@ export function HomePage() {
         </Link>
       </header>
 
-      {/* 사용 안내 (첫 방문자용 — 닫기 가능) */}
-      {showGuide && (
+      {/* 사용 안내 (기본 접힘, 클릭 시 펼침) */}
+      {!showGuide ? (
+        <button
+          onClick={() => setShowGuide(true)}
+          className="mb-6 flex w-full items-center justify-between rounded-2xl border border-line bg-paper px-5 py-3 text-sm font-medium text-ink-2 transition active:scale-[.99]"
+        >
+          <span className="flex items-center gap-2">
+            <span className="text-base">💡</span>
+            처음이신가요?
+          </span>
+          <span className="text-ink-3">자세히 보기 →</span>
+        </button>
+      ) : (
         <section className="relative mb-6 rounded-3xl border border-line bg-paper p-5">
           <button
-            onClick={dismissGuide}
+            onClick={() => setShowGuide(false)}
             aria-label="안내 닫기"
             className="absolute right-3 top-3 flex h-7 w-7 items-center justify-center rounded-full text-ink-3 hover:bg-cream"
           >
