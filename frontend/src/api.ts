@@ -77,9 +77,8 @@ export class NetworkError extends Error {
 
 async function req<T>(path: string, init?: RequestInit): Promise<T> {
   const isForm = init?.body instanceof FormData;
-  // 터널 경고 페이지 우회 (localtunnel + ngrok 둘 다)
+  // ngrok 경고 페이지 우회
   const baseHeaders: Record<string, string> = {
-    'bypass-tunnel-reminder': '1',
     'ngrok-skip-browser-warning': 'true',
   };
   let res: Response;

@@ -95,28 +95,33 @@ VITE_API_BASE=http://localhost:8000
 
 ## 🚀 배포 가이드
 
-> 프론트는 **Netlify**, 백엔드는 **로컬 PC + localtunnel** 구성.
+> 프론트는 **Netlify**, 백엔드는 **로컬 PC + ngrok** 구성.
 > Git 자동 배포 또는 드래그 배포 둘 다 가능.
 
-### 백엔드 인터넷 노출 — localtunnel
+### 백엔드 인터넷 노출 — ngrok
 
 Netlify에 배포된 프론트가 본인 PC의 백엔드를 호출하려면 터널이 필요합니다.
-**localtunnel** (무료 / 무가입 / npm 패키지) 사용.
+**ngrok** (가입 필수, 무료) 사용.
 
 ```bash
 # 1) 설치 (한 번만)
-npm install -g localtunnel
+npm install -g ngrok
 
-# 2) 백엔드 띄운 상태에서 새 터미널
-lt --port 8000 --subdomain coursepick-romyleee
-# → https://coursepick-romyleee.loca.lt
+# 2) 인증 토큰 등록 (한 번만)
+#    https://dashboard.ngrok.com → Your Authtoken 에서 복사
+ngrok config add-authtoken <당신의_토큰>
+
+# 3) 백엔드 띄운 상태에서 새 터미널
+ngrok http 8000
+# → https://<random>.ngrok-free.app 발급
 ```
 
-> ⚠️ 첫 방문자는 한 번 위 URL에 직접 접속해서 "Click to Continue" 통과 필요 (localtunnel 무료 정책)
+> 💡 **고정 도메인 추천**: ngrok 대시보드 → Universal Gateway → Domains → Create Domain (무료 1개)
+> 그 후 `ngrok http --domain=your-domain.ngrok-free.app 8000` 으로 영구 고정 URL 사용 가능.
 >
-> ⚠️ subdomain은 선점된 경우 다른 이름이 발급됨. `coursepick-romyleee`은 흔치 않으니 안정적.
+> ⚠️ ngrok 경고 페이지는 코드의 `ngrok-skip-browser-warning` 헤더로 자동 우회됨 (사용자가 IP 입력할 필요 없음).
 >
-> ⚠️ 본인 PC + `lt` 프로세스가 켜져 있을 때만 동작.
+> ⚠️ 본인 PC + ngrok 프로세스가 켜져 있을 때만 동작.
 
 ### 프론트 배포 — Netlify (드래그 방식)
 
@@ -125,7 +130,7 @@ Git 연결 없이 빠르게:
 ```bash
 # 1) 백엔드 URL을 박아서 빌드
 cd frontend
-VITE_API_BASE=https://coursepick-romyleee.loca.lt npm run build
+VITE_API_BASE=https://your-domain.ngrok-free.app npm run build
 
 # 2) frontend/dist 폴더를 통째로 Netlify 대시보드에 드래그
 #    (Project overview → Production deploys → Drag & drop area)
@@ -142,7 +147,7 @@ VITE_API_BASE=https://coursepick-romyleee.loca.lt npm run build
 3. [netlify.toml](./netlify.toml)이 자동 인식됨 (base=frontend, build=npm run build, publish=dist)
 4. **Environment variables** 추가:
    ```
-   VITE_API_BASE = https://coursepick-romyleee.loca.lt
+   VITE_API_BASE = https://your-domain.ngrok-free.app
    ```
 5. **Deploy** 클릭
 

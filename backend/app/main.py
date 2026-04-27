@@ -20,6 +20,8 @@ app = FastAPI(title="CoursePick API", version="0.3.0", lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=CORS_ORIGINS,
+    # 어떤 Netlify 사이트든 허용 (배포 URL 바뀌어도 OK)
+    allow_origin_regex=r"https://.*\.netlify\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
