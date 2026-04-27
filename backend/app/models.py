@@ -27,7 +27,7 @@ class RecommendSession(SQLModel, table=True):
     couple_id: Optional[int] = Field(default=None, foreign_key="couple.id")
     a_user_id: int = Field(foreign_key="user.id")
     b_user_id: Optional[int] = Field(default=None, foreign_key="user.id")
-    a_answers: dict = Field(sa_column=Column(JSON))
+    a_answers: Optional[dict] = Field(default=None, sa_column=Column(JSON))
     b_answers: Optional[dict] = Field(default=None, sa_column=Column(JSON))
     result: Optional[dict] = Field(default=None, sa_column=Column(JSON))
     created_at: dt.datetime = Field(default_factory=dt.datetime.utcnow)

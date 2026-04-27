@@ -36,8 +36,10 @@ export interface SessionData {
   couple_id: number | null;
   a_user_id: number;
   b_user_id: number | null;
-  a_answers: Answers;
+  a_answers: Answers | null;
   b_answers: Answers | null;
+  a_done: boolean;
+  b_done: boolean;
   result: RecommendResponse | null;
   ready: boolean;
   created_at: string;
@@ -96,10 +98,10 @@ export const api = {
     mode: 'solo' | 'couple';
     user_id: number;
     couple_id?: number | null;
-    answers: Answers;
+    answers?: Answers | null;  // optional for couple lobby; required for solo
   }) => json<SessionData>('POST')('/api/sessions', body),
-  joinSession: (code: string, body: { user_id: number; answers: Answers }) =>
-    json<SessionData>('POST')(`/api/sessions/${code}/join`, body),
+  submitAnswer: (code: string, body: { user_id: number; answers: Answers }) =>
+    json<SessionData>('POST')(`/api/sessions/${code}/answer`, body),
   getSession: (code: string) => req<SessionData>(`/api/sessions/${code}`),
 
   // logs

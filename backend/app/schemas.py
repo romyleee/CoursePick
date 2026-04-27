@@ -72,10 +72,10 @@ class SessionCreate(BaseModel):
     mode: Literal["solo", "couple"]
     user_id: int
     couple_id: Optional[int] = None
-    answers: Answers
+    answers: Optional[Answers] = None  # required for solo, optional for couple (lobby)
 
 
-class SessionJoin(BaseModel):
+class SessionAnswerSubmit(BaseModel):
     user_id: int
     answers: Answers
 
@@ -87,8 +87,10 @@ class SessionOut(BaseModel):
     couple_id: Optional[int]
     a_user_id: int
     b_user_id: Optional[int]
-    a_answers: Answers
+    a_answers: Optional[Answers]
     b_answers: Optional[Answers]
+    a_done: bool
+    b_done: bool
     result: Optional[RecommendResponse]
     ready: bool
     created_at: datetime
