@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { api, type Answers, type SessionData } from '../api';
 import { AnswersWizard } from '../components/AnswersWizard';
 import { CourseCard } from '../components/CourseCard';
+import { LoadingProgress } from '../components/LoadingProgress';
 import { ModeChoice } from '../components/ModeChoice';
 import { useSession } from '../hooks/useSession';
 
@@ -15,9 +16,11 @@ export function RecommendSoloPage() {
   const [mode, setMode] = useState<'quick' | 'detailed'>('quick');
   const [data, setData] = useState<SessionData | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [submitDone, setSubmitDone] = useState(false);
 
   const submit = async (answers: Answers) => {
     if (!session) return;
+    setSubmitDone(false);
     setStage('busy');
     try {
       const s = await api.createSession({
@@ -26,7 +29,8 @@ export function RecommendSoloPage() {
         answers,
       });
       setData(s);
-      setStage('result');
+      setSubmitDone(true);
+      setTimeout(() => setStage('result'), 350);
     } catch (e) {
       setError((e as Error).message);
       setStage('error');
@@ -35,10 +39,15 @@ export function RecommendSoloPage() {
 
   if (stage === 'busy') {
     return (
-      <div className="rounded-3xl border border-line bg-paper p-10 text-center">
-        <div className="mx-auto mb-3 h-2 w-2 animate-pulse rounded-full bg-terracotta" />
-        <p className="text-sm text-ink-3">코스 만드는 중...</p>
-      </div>
+      <LoadingProgress
+        title="코스 만드는 중"
+        stages={[
+          { label: '취향 분석', done: submitDone },
+          { label: '코스 매칭', done: submitDone },
+        ]}
+        hint="잠시만 기다려주세요"
+        slowHint="네트워크가 느려요. 백엔드/터널 상태를 확인해주세요."
+      />
     );
   }
 

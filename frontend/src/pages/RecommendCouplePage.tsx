@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { api, type Answers, type SessionData } from '../api';
 import { AnswersWizard } from '../components/AnswersWizard';
 import { CourseCard } from '../components/CourseCard';
+import { LoadingProgress } from '../components/LoadingProgress';
 import { ModeChoice } from '../components/ModeChoice';
 import { useSession } from '../hooks/useSession';
 import { createCoupleRoom } from '../session';
@@ -17,22 +18,33 @@ export function RecommendCouplePage() {
   const [data, setData] = useState<SessionData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState<string | null>(null);
+  const [progress, setProgress] = useState({ couple: false, session: false });
 
-  // 1) 방 만들기
+  // 1) 방 만들기 (단계별 progress 추적)
   useEffect(() => {
     if (!session || stage !== 'creating') return;
     let cancelled = false;
     (async () => {
       try {
         let s = session;
-        if (!s.coupleId) { s = await createCoupleRoom(); setSession(s); }
+        if (s.coupleId) {
+          // 이미 커플 모드면 1단계 즉시 완료
+          if (!cancelled) setProgress(p => ({ ...p, couple: true }));
+        } else {
+          s = await createCoupleRoom();
+          if (cancelled) return;
+          setSession(s);
+          setProgress(p => ({ ...p, couple: true }));
+        }
+
         const created = await api.createSession({
           mode: 'couple', user_id: s.userId, couple_id: s.coupleId,
         });
-        if (!cancelled) {
-          setData(created);
-          setStage('lobby');
-        }
+        if (cancelled) return;
+        setProgress(p => ({ ...p, session: true }));
+        setData(created);
+        // 100% 애니메이션 잠깐 보여주고 lobby 로
+        setTimeout(() => { if (!cancelled) setStage('lobby'); }, 350);
       } catch (e) {
         if (!cancelled) setError((e as Error).message);
       }
@@ -84,10 +96,15 @@ export function RecommendCouplePage() {
 
   if (stage === 'creating' || !data) {
     return (
-      <div className="rounded-3xl border border-line bg-paper p-10 text-center">
-        <div className="mx-auto mb-3 h-2 w-2 animate-pulse rounded-full bg-terracotta" />
-        <p className="text-sm text-ink-3">방 만드는 중...</p>
-      </div>
+      <LoadingProgress
+        title="방 만드는 중"
+        stages={[
+          { label: '커플 방 확인', done: progress.couple },
+          { label: '추천 세션 생성', done: progress.session },
+        ]}
+        hint="잠시만 기다려주세요"
+        slowHint="네트워크가 느려요. 백엔드/터널 상태를 확인해주세요."
+      />
     );
   }
 
