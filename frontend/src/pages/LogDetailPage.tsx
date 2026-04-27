@@ -142,7 +142,7 @@ export function LogDetailPage() {
 
       <button
         onClick={() => { if (confirm('정말 삭제할까요?')) del.mutate(); }}
-        className="mt-2 w-full rounded-2xl border border-line bg-paper py-3 text-sm font-medium text-terracotta active:scale-[.98]"
+        className="mt-2 w-full rounded-2xl border border-danger bg-paper py-3 text-sm font-medium text-danger active:scale-[.98]"
       >
         삭제
       </button>

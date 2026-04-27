@@ -39,10 +39,10 @@ export function RecommendSoloPage() {
   }
   if (error) {
     return (
-      <div className="rounded-3xl border border-line bg-paper p-6">
-        <p className="text-sm font-bold text-terracotta">오류</p>
-        <p className="mt-1 text-sm text-ink-2">{error}</p>
-        <p className="mt-3 text-xs text-ink-3">백엔드 서버가 켜져 있는지 확인해주세요. (port 8000)</p>
+      <div className="rounded-3xl border border-danger bg-danger-soft p-6">
+        <p className="text-sm font-bold text-danger-2">오류</p>
+        <p className="mt-1 text-sm text-danger-2">{error}</p>
+        <p className="mt-3 text-xs text-danger-2/70">백엔드 서버가 켜져 있는지 확인해주세요. (port 8000)</p>
       </div>
     );
   }

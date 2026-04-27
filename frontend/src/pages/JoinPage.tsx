@@ -83,7 +83,7 @@ export function JoinPage() {
         placeholder="ABC123"
         className="w-full rounded-2xl border border-line bg-paper px-4 py-5 text-center font-mono text-3xl font-bold tracking-[0.25em] text-ink outline-none focus:border-terracotta"
       />
-      {error && <div className="mt-3 rounded-xl bg-terracotta-soft p-3 text-sm text-terracotta-2">{error}</div>}
+      {error && <div className="mt-3 rounded-xl border border-danger bg-danger-soft p-3 text-sm text-danger-2">{error}</div>}
       <button
         onClick={onConfirmCode}
         disabled={code.length < 4}

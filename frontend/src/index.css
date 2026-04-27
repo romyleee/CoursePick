@@ -20,6 +20,13 @@ body {
   -webkit-tap-highlight-color: transparent;
   overscroll-behavior-y: contain;
   letter-spacing: -0.01em;
+  /* 알파벳은 모두 대문자로 표시 (한글은 영향 없음) */
+  text-transform: uppercase;
+}
+
+/* 입력 필드는 사용자 타이핑 그대로 */
+input, textarea, select {
+  text-transform: none;
 }
 
 @media (min-width: 768px) {

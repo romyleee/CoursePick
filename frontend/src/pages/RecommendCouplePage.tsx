@@ -52,9 +52,9 @@ export function RecommendCouplePage() {
 
   if (busy) return <div className="rounded-3xl border border-line bg-paper p-10 text-center text-sm text-ink-3">방 만드는 중...</div>;
   if (error) return (
-    <div className="rounded-3xl border border-line bg-paper p-6">
-      <p className="text-sm font-bold text-terracotta">오류</p>
-      <p className="mt-1 text-sm text-ink-2">{error}</p>
+    <div className="rounded-3xl border border-danger bg-danger-soft p-6">
+      <p className="text-sm font-bold text-danger-2">오류</p>
+      <p className="mt-1 text-sm text-danger-2">{error}</p>
     </div>
   );
 

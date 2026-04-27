@@ -123,7 +123,7 @@ export function LogFormPage() {
       </Field>
 
       {mutation.isError && (
-        <div className="mb-3 rounded-xl bg-terracotta-soft p-3 text-sm text-terracotta-2">
+        <div className="mb-3 rounded-xl border border-danger bg-danger-soft p-3 text-sm text-danger-2">
           {(mutation.error as Error).message}
         </div>
       )}

@@ -22,6 +22,11 @@ export default {
         "terracotta-2": "#D55E3D",
         "terracotta-soft": "#FBEDE5",
 
+        // Error / destructive — pure red
+        danger: "#DC2626",
+        "danger-2": "#991B1B",
+        "danger-soft": "#FEE2E2",
+
         // Aliases
         primary: "#E8704F",
         bg: "#FAF7F2",

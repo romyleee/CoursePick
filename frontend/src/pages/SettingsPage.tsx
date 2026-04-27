@@ -8,7 +8,7 @@ export function SettingsPage() {
   const navigate = useNavigate();
   const [name, setName] = useState(session?.nickname ?? '');
   const [busy, setBusy] = useState(false);
-  const [msg, setMsg] = useState<string | null>(null);
+  const [msg, setMsg] = useState<{ text: string; isError: boolean } | null>(null);
 
   const save = async () => {
     if (!name.trim() || name === session?.nickname) return;
@@ -16,9 +16,9 @@ export function SettingsPage() {
     try {
       const next = await rename(name.trim());
       setSession(next);
-      setMsg('저장됨');
+      setMsg({ text: '저장됨', isError: false });
     } catch (e) {
-      setMsg((e as Error).message);
+      setMsg({ text: (e as Error).message, isError: true });
     } finally {
       setBusy(false);
     }
@@ -27,7 +27,7 @@ export function SettingsPage() {
   const leaveCouple = () => {
     const next = clearCouple();
     if (next) setSession(next);
-    setMsg('커플 모드 해제됨');
+    setMsg({ text: '커플 모드 해제됨', isError: false });
   };
 
   return (
@@ -55,7 +55,11 @@ export function SettingsPage() {
         >
           {busy ? '저장 중...' : '저장'}
         </button>
-        {msg && <p className="mt-2 text-center text-xs text-ink-3">{msg}</p>}
+        {msg && (
+          <p className={`mt-2 text-center text-xs ${msg.isError ? 'text-danger-2' : 'text-ink-3'}`}>
+            {msg.text}
+          </p>
+        )}
       </Section>
 
       <Section title="커플 모드">
@@ -69,7 +73,7 @@ export function SettingsPage() {
             </div>
             <button
               onClick={leaveCouple}
-              className="w-full rounded-xl border border-line py-3 text-sm font-medium text-terracotta"
+              className="w-full rounded-xl border border-danger py-3 text-sm font-medium text-danger"
             >
               커플 모드 해제
             </button>

@@ -19,10 +19,17 @@ export function save(s: LocalSession) {
   localStorage.setItem(KEY, JSON.stringify(s));
 }
 
-export async function ensureUser(defaultNickname = '게스트'): Promise<LocalSession> {
-  const existing = load();
-  if (existing) return existing;
-  const user = await api.createUser(defaultNickname);
+export function randomNickname(length = 6): string {
+  const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ'; // confusables(I,O) 제외
+  let out = '';
+  for (let i = 0; i < length; i++) {
+    out += alphabet[Math.floor(Math.random() * alphabet.length)];
+  }
+  return out;
+}
+
+async function createFreshSession(nickname: string): Promise<LocalSession> {
+  const user = await api.createUser(nickname);
   const s: LocalSession = {
     userId: user.id, nickname: user.nickname,
     coupleId: null, inviteCode: null,
@@ -31,13 +38,34 @@ export async function ensureUser(defaultNickname = '게스트'): Promise<LocalSe
   return s;
 }
 
+export async function ensureUser(defaultNickname?: string): Promise<LocalSession> {
+  const existing = load();
+  if (existing) {
+    // localStorage의 user_id가 서버에 실제 존재하는지 검증 (DB 리셋 대응)
+    try {
+      await api.getUser(existing.userId);
+      return existing;
+    } catch {
+      localStorage.removeItem('coursepick.session');
+      // fall through → 새로 생성
+    }
+  }
+  return createFreshSession(defaultNickname ?? randomNickname());
+}
+
 export async function rename(nickname: string): Promise<LocalSession> {
   const s = load();
-  if (!s) throw new Error('no session');
-  const user = await api.updateUser(s.userId, nickname);
-  const next = { ...s, nickname: user.nickname };
-  save(next);
-  return next;
+  if (!s) return createFreshSession(nickname);
+  try {
+    const user = await api.updateUser(s.userId, nickname);
+    const next = { ...s, nickname: user.nickname };
+    save(next);
+    return next;
+  } catch (e) {
+    // 404: 서버에 사용자 없음 → 새로 생성
+    if (String(e).includes('404')) return createFreshSession(nickname);
+    throw e;
+  }
 }
 
 export async function createCoupleRoom(): Promise<LocalSession> {
