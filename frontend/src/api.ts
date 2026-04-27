@@ -73,11 +73,15 @@ export class NetworkError extends Error {
 
 async function req<T>(path: string, init?: RequestInit): Promise<T> {
   const isForm = init?.body instanceof FormData;
+  // bypass-tunnel-reminder: localtunnel 경고 페이지 우회 (배포 환경에서 필요)
+  const baseHeaders: Record<string, string> = { 'bypass-tunnel-reminder': '1' };
   let res: Response;
   try {
     res = await fetch(`${BASE}${path}`, {
       ...init,
-      headers: isForm ? init?.headers : { 'Content-Type': 'application/json', ...(init?.headers ?? {}) },
+      headers: isForm
+        ? { ...baseHeaders, ...(init?.headers as Record<string, string> ?? {}) }
+        : { ...baseHeaders, 'Content-Type': 'application/json', ...(init?.headers as Record<string, string> ?? {}) },
     });
   } catch {
     throw new NetworkError();
