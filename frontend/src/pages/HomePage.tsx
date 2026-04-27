@@ -21,7 +21,9 @@ export function HomePage() {
         <div>
           <p className="mb-1 text-[11px] uppercase tracking-widest text-ink-3">{dateStr}</p>
           <h1 className="text-3xl font-bold leading-tight tracking-tight text-ink">
-            안녕, 게스트 {session?.userId ?? ''}
+            {session
+              ? <>안녕, 게스트 {session.userId}</>
+              : <span className="text-ink-3">안녕, 게스트 ...</span>}
           </h1>
           <p className="mt-1 text-sm text-ink-3">
             {session?.coupleId ? '커플 모드' : '솔로 모드'}
