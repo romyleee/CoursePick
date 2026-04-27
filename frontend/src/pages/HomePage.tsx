@@ -1,8 +1,26 @@
 import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../api';
 import { LogCard } from '../components/LogCard';
 import { useSession } from '../hooks/useSession';
+
+const TYPE_CHIPS = [
+  { emoji: '☕', label: '카페' },
+  { emoji: '🍽', label: '식사' },
+  { emoji: '🚶', label: '산책' },
+  { emoji: '🎯', label: '액티비티' },
+  { emoji: '🍰', label: '디저트' },
+  { emoji: '🌃', label: '뷰' },
+  { emoji: '🍷', label: '바' },
+  { emoji: '🎭', label: '공연' },
+  { emoji: '🛍', label: '쇼핑' },
+  { emoji: '🌳', label: '공원' },
+  { emoji: '🏞', label: '자연' },
+  { emoji: '🧘', label: '웰니스' },
+];
+
+const GUIDE_KEY = 'coursepick.guide.dismissed';
 
 export function HomePage() {
   const { session } = useSession();
@@ -11,6 +29,14 @@ export function HomePage() {
     queryFn: () => api.listLogs({ couple_id: session?.coupleId ?? undefined, limit: 4 }),
     enabled: !!session,
   });
+
+  const [showGuide, setShowGuide] = useState(
+    () => localStorage.getItem(GUIDE_KEY) !== 'true',
+  );
+  const dismissGuide = () => {
+    localStorage.setItem(GUIDE_KEY, 'true');
+    setShowGuide(false);
+  };
 
   const today = new Date();
   const dateStr = today.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric', weekday: 'long' });
@@ -37,6 +63,38 @@ export function HomePage() {
           ⚙
         </Link>
       </header>
+
+      {/* 사용 안내 (첫 방문자용 — 닫기 가능) */}
+      {showGuide && (
+        <section className="relative mb-6 rounded-3xl border border-line bg-paper p-5">
+          <button
+            onClick={dismissGuide}
+            aria-label="안내 닫기"
+            className="absolute right-3 top-3 flex h-7 w-7 items-center justify-center rounded-full text-ink-3 hover:bg-cream"
+          >
+            ✕
+          </button>
+          <p className="mb-2 text-[11px] uppercase tracking-widest text-terracotta">처음이신가요?</p>
+          <h2 className="mb-2 text-base font-bold tracking-tight text-ink">
+            질문 4-7개 → 오늘 코스 2가지
+          </h2>
+          <p className="mb-4 text-sm leading-relaxed text-ink-3">
+            컨디션·분위기·예산 등을 답하면, <b className="text-ink">12가지 카테고리</b>에서
+            조합해서 오늘 딱 맞는 코스 두 개를 보여드려요. 마음에 드는 거 골라요.
+          </p>
+          <div className="flex flex-wrap gap-1.5">
+            {TYPE_CHIPS.map((c) => (
+              <span
+                key={c.label}
+                className="inline-flex items-center gap-1 rounded-full border border-line bg-cream/50 px-2.5 py-1 text-xs text-ink-2"
+              >
+                <span>{c.emoji}</span>
+                <span>{c.label}</span>
+              </span>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Primary CTA */}
       <section className="mb-3">

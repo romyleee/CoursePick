@@ -2,11 +2,17 @@ import { useState } from 'react';
 import type { CourseOption } from '../api';
 
 const TYPE_EMOJI: Record<string, string> = {
-  cafe: '☕', walk: '🚶', food: '🍽', activity: '🎯', dessert: '🍰', view: '🌃',
+  cafe: '☕', walk: '🚶', food: '🍽', activity: '🎯',
+  dessert: '🍰', view: '🌃',
+  bar: '🍷', culture: '🎭', shopping: '🛍',
+  park: '🌳', nature: '🏞', wellness: '🧘',
 };
 
 const TYPE_LABEL: Record<string, string> = {
-  cafe: 'Cafe', walk: 'Walk', food: 'Food', activity: 'Activity', dessert: 'Dessert', view: 'View',
+  cafe: 'Cafe', walk: 'Walk', food: 'Food', activity: 'Activity',
+  dessert: 'Dessert', view: 'View',
+  bar: 'Bar', culture: 'Culture', shopping: 'Shopping',
+  park: 'Park', nature: 'Nature', wellness: 'Wellness',
 };
 
 interface Props {

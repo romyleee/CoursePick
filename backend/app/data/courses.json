@@ -1257,6 +1257,427 @@
       "region": [
         "hangang"
       ]
+    },
+    {
+      "id": 51,
+      "type": "bar",
+      "name": "와인바",
+      "budget": [
+        "high",
+        "mid"
+      ],
+      "time": [
+        "evening",
+        "night"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "calm",
+        "excited"
+      ],
+      "region": [
+        "gangnam",
+        "hongdae",
+        "itaewon",
+        "seongsu",
+        "songdo",
+        "bundang",
+        "pangyo"
+      ]
+    },
+    {
+      "id": 52,
+      "type": "bar",
+      "name": "칵테일 라운지",
+      "budget": [
+        "high"
+      ],
+      "time": [
+        "evening",
+        "night"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "excited"
+      ],
+      "region": [
+        "gangnam",
+        "itaewon",
+        "apgujeong",
+        "songdo",
+        "bundang"
+      ]
+    },
+    {
+      "id": 53,
+      "type": "bar",
+      "name": "전통주점",
+      "budget": [
+        "mid"
+      ],
+      "time": [
+        "evening",
+        "night"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "calm",
+        "excited"
+      ],
+      "region": [
+        "jongno",
+        "hongdae",
+        "seongsu",
+        "bupyeong"
+      ]
+    },
+    {
+      "id": 54,
+      "type": "culture",
+      "name": "소극장 공연",
+      "budget": [
+        "mid"
+      ],
+      "time": [
+        "evening"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "focused"
+      ],
+      "region": [
+        "jongno",
+        "hongdae",
+        "gangnam"
+      ]
+    },
+    {
+      "id": 55,
+      "type": "culture",
+      "name": "마술쇼",
+      "budget": [
+        "mid"
+      ],
+      "time": [
+        "evening"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "excited"
+      ],
+      "region": [
+        "hongdae",
+        "gangnam",
+        "itaewon"
+      ]
+    },
+    {
+      "id": 56,
+      "type": "culture",
+      "name": "라이브 콘서트",
+      "budget": [
+        "high"
+      ],
+      "time": [
+        "evening",
+        "night"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "excited"
+      ],
+      "region": [
+        "hongdae",
+        "jamsil",
+        "gangnam",
+        "ilsan"
+      ]
+    },
+    {
+      "id": 57,
+      "type": "shopping",
+      "name": "가로수길 쇼핑",
+      "budget": [
+        "mid",
+        "high"
+      ],
+      "time": [
+        "afternoon"
+      ],
+      "place": "outdoor",
+      "cuisine": null,
+      "moods": [
+        "excited"
+      ],
+      "region": [
+        "gangnam",
+        "apgujeong"
+      ]
+    },
+    {
+      "id": 58,
+      "type": "shopping",
+      "name": "편집샵 투어",
+      "budget": [
+        "mid",
+        "high"
+      ],
+      "time": [
+        "afternoon",
+        "evening"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "excited",
+        "focused"
+      ],
+      "region": [
+        "seongsu",
+        "yeonnam",
+        "mangwon",
+        "hongdae"
+      ]
+    },
+    {
+      "id": 59,
+      "type": "shopping",
+      "name": "백화점 쇼핑",
+      "budget": [
+        "high"
+      ],
+      "time": [
+        "afternoon",
+        "evening"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "excited"
+      ],
+      "region": [
+        "gangnam",
+        "jamsil",
+        "yeouido",
+        "songdo",
+        "ilsan",
+        "bundang"
+      ]
+    },
+    {
+      "id": 60,
+      "type": "park",
+      "name": "보타닉파크",
+      "budget": [
+        "low",
+        "mid"
+      ],
+      "time": [
+        "morning",
+        "afternoon"
+      ],
+      "place": "outdoor",
+      "cuisine": null,
+      "moods": [
+        "calm"
+      ],
+      "region": [
+        "seongsu",
+        "songdo",
+        "ilsan"
+      ]
+    },
+    {
+      "id": 61,
+      "type": "park",
+      "name": "수목원 산책",
+      "budget": [
+        "low"
+      ],
+      "time": [
+        "morning",
+        "afternoon"
+      ],
+      "place": "outdoor",
+      "cuisine": null,
+      "moods": [
+        "calm",
+        "focused"
+      ],
+      "region": [
+        "jongno",
+        "ilsan",
+        "bundang",
+        "pangyo"
+      ]
+    },
+    {
+      "id": 62,
+      "type": "park",
+      "name": "식물원 데이트",
+      "budget": [
+        "low",
+        "mid"
+      ],
+      "time": [
+        "afternoon"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "calm"
+      ],
+      "region": [
+        "seongsu",
+        "yeouido",
+        "ilsan"
+      ]
+    },
+    {
+      "id": 63,
+      "type": "nature",
+      "name": "가벼운 등산",
+      "budget": [
+        "low"
+      ],
+      "time": [
+        "morning",
+        "afternoon"
+      ],
+      "place": "outdoor",
+      "cuisine": null,
+      "moods": [
+        "focused"
+      ],
+      "region": [
+        "jongno",
+        "itaewon",
+        "yeongjong"
+      ]
+    },
+    {
+      "id": 64,
+      "type": "nature",
+      "name": "숲 트레일",
+      "budget": [
+        "low"
+      ],
+      "time": [
+        "afternoon"
+      ],
+      "place": "outdoor",
+      "cuisine": null,
+      "moods": [
+        "calm"
+      ],
+      "region": [
+        "jongno",
+        "bundang",
+        "ilsan"
+      ]
+    },
+    {
+      "id": 65,
+      "type": "nature",
+      "name": "바다 드라이브",
+      "budget": [
+        "mid",
+        "high"
+      ],
+      "time": [
+        "afternoon",
+        "evening"
+      ],
+      "place": "outdoor",
+      "cuisine": null,
+      "moods": [
+        "calm"
+      ],
+      "region": [
+        "songdo",
+        "yeongjong"
+      ]
+    },
+    {
+      "id": 66,
+      "type": "wellness",
+      "name": "스파/마사지",
+      "budget": [
+        "high"
+      ],
+      "time": [
+        "afternoon",
+        "evening"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "calm"
+      ],
+      "region": [
+        "gangnam",
+        "apgujeong",
+        "itaewon",
+        "songdo",
+        "bundang"
+      ]
+    },
+    {
+      "id": 67,
+      "type": "wellness",
+      "name": "요가 클래스",
+      "budget": [
+        "mid"
+      ],
+      "time": [
+        "morning",
+        "afternoon"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "focused",
+        "calm"
+      ],
+      "region": [
+        "gangnam",
+        "seongsu",
+        "hongdae",
+        "ilsan",
+        "bundang"
+      ]
+    },
+    {
+      "id": 68,
+      "type": "wellness",
+      "name": "찜질방",
+      "budget": [
+        "low",
+        "mid"
+      ],
+      "time": [
+        "afternoon",
+        "evening",
+        "night"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "calm"
+      ],
+      "region": [
+        "jongno",
+        "jamsil",
+        "songdo",
+        "bundang",
+        "bupyeong"
+      ]
     }
   ],
   "rules": [
@@ -1266,12 +1687,24 @@
         "mood": "calm",
         "activity": "low"
       },
-      "course_types": [
-        "cafe",
-        "food",
-        "walk"
-      ],
-      "reason": "피곤+조용 → 카페 중심 코스"
+      "options": [
+        {
+          "course_types": [
+            "wellness",
+            "food",
+            "cafe"
+          ],
+          "reason": "피곤 → 힐링 + 편안한 식사 + 카페"
+        },
+        {
+          "course_types": [
+            "cafe",
+            "food",
+            "dessert"
+          ],
+          "reason": "조용한 카페 + 식사 + 달콤한 마무리"
+        }
+      ]
     },
     {
       "match": {
@@ -1279,155 +1712,24 @@
         "mood": "calm",
         "activity": "high"
       },
-      "course_types": [
-        "cafe",
-        "food",
-        "view"
-      ],
-      "reason": "피곤한데 가볍게 움직이고 싶을 때"
-    },
-    {
-      "match": {
-        "state": "good",
-        "mood": "excited",
-        "activity": "high"
-      },
-      "course_types": [
-        "activity",
-        "food",
-        "view"
-      ],
-      "reason": "기분 좋고 활동적 → 액티비티 중심"
-    },
-    {
-      "match": {
-        "state": "good",
-        "mood": "excited",
-        "activity": "low"
-      },
-      "course_types": [
-        "food",
-        "dessert",
-        "view"
-      ],
-      "reason": "기분 좋게 맛있는 거 먹는 코스"
-    },
-    {
-      "match": {
-        "state": "normal",
-        "mood": "focused",
-        "activity": "low"
-      },
-      "course_types": [
-        "activity",
-        "food",
-        "cafe"
-      ],
-      "reason": "차분히 즐기는 문화 코스"
-    },
-    {
-      "match": {
-        "state": "normal",
-        "mood": "focused",
-        "activity": "high"
-      },
-      "course_types": [
-        "activity",
-        "food",
-        "cafe"
-      ],
-      "reason": "집중해서 즐기는 액티비티"
-    },
-    {
-      "match": {
-        "state": "normal",
-        "mood": "calm",
-        "activity": "low"
-      },
-      "course_types": [
-        "walk",
-        "food",
-        "cafe"
-      ],
-      "reason": "여유로운 산책 코스"
-    },
-    {
-      "match": {
-        "state": "good",
-        "mood": "calm",
-        "activity": "low"
-      },
-      "course_types": [
-        "walk",
-        "food",
-        "dessert"
-      ],
-      "reason": "기분 좋은 여유 코스"
-    },
-    {
-      "match": {
-        "state": "good",
-        "mood": "calm",
-        "activity": "high"
-      },
-      "course_types": [
-        "walk",
-        "activity",
-        "food"
-      ],
-      "reason": "기분 좋게 가볍게 움직이는 코스"
-    },
-    {
-      "match": {
-        "state": "good",
-        "mood": "focused",
-        "activity": "low"
-      },
-      "course_types": [
-        "activity",
-        "cafe",
-        "food"
-      ],
-      "reason": "차분히 몰입하는 데이트"
-    },
-    {
-      "match": {
-        "state": "good",
-        "mood": "focused",
-        "activity": "high"
-      },
-      "course_types": [
-        "activity",
-        "food",
-        "view"
-      ],
-      "reason": "에너지 넘치는 도전 코스"
-    },
-    {
-      "match": {
-        "state": "normal",
-        "mood": "excited",
-        "activity": "low"
-      },
-      "course_types": [
-        "food",
-        "cafe",
-        "dessert"
-      ],
-      "reason": "맛있는 거 먹으며 텐션업"
-    },
-    {
-      "match": {
-        "state": "normal",
-        "mood": "excited",
-        "activity": "high"
-      },
-      "course_types": [
-        "activity",
-        "food",
-        "view"
-      ],
-      "reason": "활기찬 데이트 코스"
+      "options": [
+        {
+          "course_types": [
+            "walk",
+            "food",
+            "view"
+          ],
+          "reason": "가벼운 산책 + 식사 + 야경"
+        },
+        {
+          "course_types": [
+            "park",
+            "food",
+            "cafe"
+          ],
+          "reason": "공원 여유 + 식사 + 카페"
+        }
+      ]
     },
     {
       "match": {
@@ -1435,12 +1737,24 @@
         "mood": "excited",
         "activity": "low"
       },
-      "course_types": [
-        "food",
-        "cafe",
-        "dessert"
-      ],
-      "reason": "쉬면서 기분전환"
+      "options": [
+        {
+          "course_types": [
+            "food",
+            "dessert",
+            "bar"
+          ],
+          "reason": "쉬면서 맛있게 + 한잔"
+        },
+        {
+          "course_types": [
+            "food",
+            "cafe",
+            "culture"
+          ],
+          "reason": "식사 + 카페 + 공연으로 기분전환"
+        }
+      ]
     },
     {
       "match": {
@@ -1448,12 +1762,24 @@
         "mood": "excited",
         "activity": "high"
       },
-      "course_types": [
-        "food",
-        "activity",
-        "view"
-      ],
-      "reason": "피곤해도 기분전환 코스"
+      "options": [
+        {
+          "course_types": [
+            "food",
+            "activity",
+            "view"
+          ],
+          "reason": "활기차게 액티비티 + 식사 + 야경"
+        },
+        {
+          "course_types": [
+            "food",
+            "shopping",
+            "view"
+          ],
+          "reason": "쇼핑 + 식사 + 야경"
+        }
+      ]
     },
     {
       "match": {
@@ -1461,12 +1787,24 @@
         "mood": "focused",
         "activity": "low"
       },
-      "course_types": [
-        "cafe",
-        "activity",
-        "food"
-      ],
-      "reason": "조용히 몰입하는 코스"
+      "options": [
+        {
+          "course_types": [
+            "culture",
+            "food",
+            "cafe"
+          ],
+          "reason": "공연 + 식사 + 카페"
+        },
+        {
+          "course_types": [
+            "wellness",
+            "food",
+            "cafe"
+          ],
+          "reason": "힐링 + 식사 + 카페"
+        }
+      ]
     },
     {
       "match": {
@@ -1474,12 +1812,49 @@
         "mood": "focused",
         "activity": "high"
       },
-      "course_types": [
-        "activity",
-        "cafe",
-        "food"
-      ],
-      "reason": "피곤해도 가벼운 액티비티"
+      "options": [
+        {
+          "course_types": [
+            "activity",
+            "food",
+            "cafe"
+          ],
+          "reason": "가벼운 액티비티 + 식사 + 카페"
+        },
+        {
+          "course_types": [
+            "culture",
+            "food",
+            "view"
+          ],
+          "reason": "공연 + 식사 + 야경"
+        }
+      ]
+    },
+    {
+      "match": {
+        "state": "normal",
+        "mood": "calm",
+        "activity": "low"
+      },
+      "options": [
+        {
+          "course_types": [
+            "walk",
+            "food",
+            "dessert"
+          ],
+          "reason": "여유 산책 + 식사 + 디저트"
+        },
+        {
+          "course_types": [
+            "cafe",
+            "food",
+            "park"
+          ],
+          "reason": "카페 + 식사 + 공원 산책"
+        }
+      ]
     },
     {
       "match": {
@@ -1487,12 +1862,274 @@
         "mood": "calm",
         "activity": "high"
       },
-      "course_types": [
-        "walk",
-        "food",
-        "activity"
-      ],
-      "reason": "여유 있게 움직이는 코스"
+      "options": [
+        {
+          "course_types": [
+            "park",
+            "food",
+            "walk"
+          ],
+          "reason": "공원 + 식사 + 산책"
+        },
+        {
+          "course_types": [
+            "nature",
+            "food",
+            "cafe"
+          ],
+          "reason": "자연 + 식사 + 카페"
+        }
+      ]
+    },
+    {
+      "match": {
+        "state": "normal",
+        "mood": "excited",
+        "activity": "low"
+      },
+      "options": [
+        {
+          "course_types": [
+            "food",
+            "cafe",
+            "shopping"
+          ],
+          "reason": "식사 + 카페 + 쇼핑"
+        },
+        {
+          "course_types": [
+            "food",
+            "dessert",
+            "bar"
+          ],
+          "reason": "맛있게 먹고 + 디저트 + 한잔"
+        }
+      ]
+    },
+    {
+      "match": {
+        "state": "normal",
+        "mood": "excited",
+        "activity": "high"
+      },
+      "options": [
+        {
+          "course_types": [
+            "activity",
+            "food",
+            "view"
+          ],
+          "reason": "액티비티 + 식사 + 야경"
+        },
+        {
+          "course_types": [
+            "shopping",
+            "food",
+            "view"
+          ],
+          "reason": "쇼핑 + 식사 + 야경"
+        }
+      ]
+    },
+    {
+      "match": {
+        "state": "normal",
+        "mood": "focused",
+        "activity": "low"
+      },
+      "options": [
+        {
+          "course_types": [
+            "culture",
+            "food",
+            "cafe"
+          ],
+          "reason": "문화 + 식사 + 카페"
+        },
+        {
+          "course_types": [
+            "shopping",
+            "food",
+            "cafe"
+          ],
+          "reason": "편집샵 투어 + 식사 + 카페"
+        }
+      ]
+    },
+    {
+      "match": {
+        "state": "normal",
+        "mood": "focused",
+        "activity": "high"
+      },
+      "options": [
+        {
+          "course_types": [
+            "activity",
+            "food",
+            "culture"
+          ],
+          "reason": "체험 + 식사 + 공연"
+        },
+        {
+          "course_types": [
+            "culture",
+            "food",
+            "activity"
+          ],
+          "reason": "공연 + 식사 + 액티비티"
+        }
+      ]
+    },
+    {
+      "match": {
+        "state": "good",
+        "mood": "calm",
+        "activity": "low"
+      },
+      "options": [
+        {
+          "course_types": [
+            "walk",
+            "food",
+            "dessert"
+          ],
+          "reason": "기분 좋은 여유 산책 + 식사 + 디저트"
+        },
+        {
+          "course_types": [
+            "nature",
+            "food",
+            "cafe"
+          ],
+          "reason": "자연 + 식사 + 카페"
+        }
+      ]
+    },
+    {
+      "match": {
+        "state": "good",
+        "mood": "calm",
+        "activity": "high"
+      },
+      "options": [
+        {
+          "course_types": [
+            "nature",
+            "food",
+            "walk"
+          ],
+          "reason": "자연 + 식사 + 산책"
+        },
+        {
+          "course_types": [
+            "park",
+            "food",
+            "view"
+          ],
+          "reason": "공원 + 식사 + 야경"
+        }
+      ]
+    },
+    {
+      "match": {
+        "state": "good",
+        "mood": "excited",
+        "activity": "low"
+      },
+      "options": [
+        {
+          "course_types": [
+            "food",
+            "dessert",
+            "bar"
+          ],
+          "reason": "맛있게 + 디저트 + 한잔"
+        },
+        {
+          "course_types": [
+            "shopping",
+            "food",
+            "dessert"
+          ],
+          "reason": "쇼핑 + 식사 + 달콤한 마무리"
+        }
+      ]
+    },
+    {
+      "match": {
+        "state": "good",
+        "mood": "excited",
+        "activity": "high"
+      },
+      "options": [
+        {
+          "course_types": [
+            "activity",
+            "food",
+            "view"
+          ],
+          "reason": "에너지 넘치는 도전 + 식사 + 야경"
+        },
+        {
+          "course_types": [
+            "bar",
+            "food",
+            "view"
+          ],
+          "reason": "한잔 + 식사 + 야경"
+        }
+      ]
+    },
+    {
+      "match": {
+        "state": "good",
+        "mood": "focused",
+        "activity": "low"
+      },
+      "options": [
+        {
+          "course_types": [
+            "culture",
+            "food",
+            "cafe"
+          ],
+          "reason": "문화 + 식사 + 카페"
+        },
+        {
+          "course_types": [
+            "shopping",
+            "food",
+            "dessert"
+          ],
+          "reason": "편집샵 + 식사 + 디저트"
+        }
+      ]
+    },
+    {
+      "match": {
+        "state": "good",
+        "mood": "focused",
+        "activity": "high"
+      },
+      "options": [
+        {
+          "course_types": [
+            "activity",
+            "food",
+            "view"
+          ],
+          "reason": "도전 + 식사 + 야경"
+        },
+        {
+          "course_types": [
+            "nature",
+            "food",
+            "view"
+          ],
+          "reason": "자연 + 식사 + 야경"
+        }
+      ]
     }
   ]
 }

@@ -6,7 +6,10 @@ import { StarRating } from '../components/StarRating';
 import { useSession } from '../hooks/useSession';
 
 const TYPE_EMOJI: Record<string, string> = {
-  cafe: '☕', walk: '🚶', food: '🍽', activity: '🎯', dessert: '🍰', view: '🌃',
+  cafe: '☕', walk: '🚶', food: '🍽', activity: '🎯',
+  dessert: '🍰', view: '🌃',
+  bar: '🍷', culture: '🎭', shopping: '🛍',
+  park: '🌳', nature: '🏞', wellness: '🧘',
 };
 
 export function LogDetailPage() {
