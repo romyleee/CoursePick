@@ -39,10 +39,14 @@ class CourseStep(BaseModel):
     name: str
 
 
-class RecommendResponse(BaseModel):
+class CourseOption(BaseModel):
     course: list[CourseStep]
     reason: str
-    region: Optional[str] = None  # 시스템이 코스에 맞춰 추천한 지역 (한글 라벨)
+    region: Optional[str] = None
+
+
+class RecommendResponse(BaseModel):
+    options: list[CourseOption]  # 보통 2개, 사용자가 선택 또는 조합
 
 
 # Users

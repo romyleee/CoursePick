@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { api, type SessionData } from '../api';
+import { api, type CourseOption, type SessionData } from '../api';
 import { useSession } from '../hooks/useSession';
 import { resizeImage } from '../utils/image';
 
@@ -11,8 +11,11 @@ export function LogFormPage() {
   const location = useLocation();
   const qc = useQueryClient();
 
-  const incomingSession = (location.state as { session?: SessionData } | null)?.session ?? null;
-  const recommended = incomingSession?.result?.course ?? [];
+  const navState = (location.state as { session?: SessionData; option?: CourseOption } | null);
+  const incomingSession = navState?.session ?? null;
+  // 사용자가 고른 옵션 → 없으면 첫 번째 옵션 fallback
+  const selectedOption = navState?.option ?? incomingSession?.result?.options?.[0] ?? null;
+  const recommended = selectedOption?.course ?? [];
 
   const [photo, setPhoto] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);

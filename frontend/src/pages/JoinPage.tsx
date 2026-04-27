@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { api, type Answers, type SessionData } from '../api';
+import { api, type Answers, type CourseOption, type SessionData } from '../api';
 import { AnswersWizard } from '../components/AnswersWizard';
-import { CourseCard } from '../components/CourseCard';
 import { ModeChoice } from '../components/ModeChoice';
+import { ResultView } from '../components/ResultView';
 import { useSession } from '../hooks/useSession';
 import { commitCouple, transientJoinCouple } from '../session';
 
@@ -101,15 +101,14 @@ export function JoinPage() {
 
   if (stage === 'done' && data?.result) {
     return (
-      <div>
-        <p className="mb-2 text-[11px] uppercase tracking-widest text-ink-3">Couple Result</p>
-        <h1 className="mb-6 text-3xl font-bold tracking-tight text-ink">통합 추천</h1>
-        <CourseCard
-          data={data.result}
-          onAccept={() => navigate('/logs/new', { state: { session: data } })}
-          onRetry={() => navigate('/')}
-        />
-      </div>
+      <ResultView
+        options={data.result.options}
+        session={data}
+        title="Couple Result"
+        heading="통합 추천"
+        onAccept={(opt: CourseOption) => navigate('/logs/new', { state: { session: data, option: opt } })}
+        onRetry={() => navigate('/')}
+      />
     );
   }
 

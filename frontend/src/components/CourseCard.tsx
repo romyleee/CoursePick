@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import type { RecommendResponse } from '../api';
+import type { CourseOption } from '../api';
 
 const TYPE_EMOJI: Record<string, string> = {
   cafe: '☕', walk: '🚶', food: '🍽', activity: '🎯', dessert: '🍰', view: '🌃',
@@ -10,12 +10,13 @@ const TYPE_LABEL: Record<string, string> = {
 };
 
 interface Props {
-  data: RecommendResponse;
+  data: CourseOption;
+  label?: string;       // "코스 1" 같은 헤딩
   onAccept?: () => void;
   onRetry?: () => void;
 }
 
-export function CourseCard({ data, onAccept, onRetry }: Props) {
+export function CourseCard({ data, label, onAccept, onRetry }: Props) {
   const captureRef = useRef<HTMLDivElement>(null);
   const [sharing, setSharing] = useState(false);
   const [shareMsg, setShareMsg] = useState<string | null>(null);
@@ -74,7 +75,7 @@ export function CourseCard({ data, onAccept, onRetry }: Props) {
     <div>
       <div ref={captureRef} className="rounded-3xl border border-line bg-paper p-6">
         <div className="mb-1 flex items-center justify-between">
-          <h3 className="text-2xl font-bold tracking-tight text-ink">오늘의 코스</h3>
+          <h3 className="text-2xl font-bold tracking-tight text-ink">{label ?? '오늘의 코스'}</h3>
           <span className="text-[11px] font-bold tracking-tight">
             <span className="text-terracotta">갈래</span><span className="text-ink">말래</span>
           </span>

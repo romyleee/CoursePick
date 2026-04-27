@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { api, type Answers, type SessionData } from '../api';
+import { api, type Answers, type CourseOption, type SessionData } from '../api';
 import { AnswersWizard } from '../components/AnswersWizard';
-import { CourseCard } from '../components/CourseCard';
 import { LoadingProgress } from '../components/LoadingProgress';
 import { ModeChoice } from '../components/ModeChoice';
+import { ResultView } from '../components/ResultView';
 import { useSession } from '../hooks/useSession';
 
 type Stage = 'choice' | 'wizard' | 'busy' | 'result' | 'error';
@@ -62,16 +62,18 @@ export function RecommendSoloPage() {
   }
 
   if (stage === 'result' && data?.result) {
+    const onAccept = (opt: CourseOption) => {
+      navigate('/logs/new', { state: { session: data, option: opt } });
+    };
     return (
-      <div>
-        <p className="mb-2 text-[11px] uppercase tracking-widest text-ink-3">Solo Result</p>
-        <h1 className="mb-6 text-3xl font-bold tracking-tight text-ink">추천 결과</h1>
-        <CourseCard
-          data={data.result}
-          onAccept={() => navigate('/logs/new', { state: { session: data } })}
-          onRetry={() => setStage('choice')}
-        />
-      </div>
+      <ResultView
+        options={data.result.options}
+        session={data}
+        title="Solo Result"
+        heading="추천 결과"
+        onAccept={onAccept}
+        onRetry={() => setStage('choice')}
+      />
     );
   }
 

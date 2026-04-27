@@ -28,10 +28,13 @@ export interface Answers {
 }
 
 export interface CourseStep { step: number; type: string; name: string; }
-export interface RecommendResponse {
+export interface CourseOption {
   course: CourseStep[];
   reason: string;
-  region?: string | null;  // 시스템이 추천한 지역 (한글 라벨)
+  region?: string | null;
+}
+export interface RecommendResponse {
+  options: CourseOption[];  // 보통 2개
 }
 
 export interface User { id: number; nickname: string; created_at: string; }

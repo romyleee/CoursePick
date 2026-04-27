@@ -11,7 +11,7 @@ from sqlmodel import Session, select
 
 from .config import DATA_DIR
 from .models import Couple, DateLog, RecommendSession
-from .schemas import Answers, CourseStep, RecommendResponse
+from .schemas import Answers, CourseOption, CourseStep, RecommendResponse
 
 STATE_PRIO = {"tired": 2, "normal": 1, "good": 0}
 ACTIVITY_PRIO = {"low": 1, "high": 0}
@@ -226,27 +226,52 @@ def _pick(course_type: str, ans: Answers, exclude: set[str], favorites: set[str]
     return random.choice(weighted)
 
 
-def build_course(
+def _build_one_option(
     answers: Answers,
-    session: Session,
-    couple_id: Optional[int] = None,
-    extra_reason: str = "",
-) -> RecommendResponse:
-    rule = _match_rule(answers)
-    exclude = _recent_names(session, couple_id)
-    favorites = _favorite_names(session, couple_id)
+    rule: dict,
+    exclude_recent: set[str],
+    cross_exclude: set[str],
+    favorites: set[str],
+    extra_reason: str,
+) -> Optional[CourseOption]:
+    """단일 옵션 1개 생성. cross_exclude로 다른 옵션과 중복 방지."""
     course: list[CourseStep] = []
     picked_full: list[dict] = []
     used: set[str] = set()
     for idx, ctype in enumerate(rule["course_types"], start=1):
-        picked = _pick(ctype, answers, exclude | used, favorites)
+        picked = _pick(ctype, answers, exclude_recent | used | cross_exclude, favorites)
         if picked is None:
             continue
         used.add(picked["name"])
         course.append(CourseStep(step=idx, type=picked["type"], name=picked["name"]))
         picked_full.append(picked)
+    if not course:
+        return None
     reason = f"{extra_reason}\n{rule['reason']}".strip() if extra_reason else rule["reason"]
     if favorites & {s.name for s in course}:
         reason += "\n💖 최애 코스 포함"
     region = _suggest_region(picked_full)
-    return RecommendResponse(course=course, reason=reason, region=region)
+    return CourseOption(course=course, reason=reason, region=region)
+
+
+def build_course(
+    answers: Answers,
+    session: Session,
+    couple_id: Optional[int] = None,
+    extra_reason: str = "",
+    n: int = 2,
+) -> RecommendResponse:
+    """N개의 서로 다른 코스 옵션 생성."""
+    rule = _match_rule(answers)
+    exclude_recent = _recent_names(session, couple_id)
+    favorites = _favorite_names(session, couple_id)
+    options: list[CourseOption] = []
+    cross_exclude: set[str] = set()
+    for _ in range(n):
+        opt = _build_one_option(answers, rule, exclude_recent, cross_exclude, favorites, extra_reason)
+        if opt is None:
+            break
+        options.append(opt)
+        for s in opt.course:
+            cross_exclude.add(s.name)
+    return RecommendResponse(options=options)
