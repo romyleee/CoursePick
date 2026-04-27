@@ -1,7 +1,8 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import type { DateLog } from '../api';
 
-export function LogCard({ log }: { log: DateLog }) {
+export const LogCard = memo(function LogCard({ log }: { log: DateLog }) {
   const rating = log.a_rating ?? 0;
   return (
     <Link
@@ -28,4 +29,4 @@ export function LogCard({ log }: { log: DateLog }) {
       </div>
     </Link>
   );
-}
+});

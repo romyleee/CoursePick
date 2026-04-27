@@ -1,4 +1,3 @@
-import { toBlob } from 'html-to-image';
 import { useRef, useState } from 'react';
 import type { RecommendResponse } from '../api';
 
@@ -26,6 +25,8 @@ export function CourseCard({ data, onAccept, onRetry }: Props) {
     setSharing(true);
     setShareMsg(null);
     try {
+      // html-to-image 는 무거우니 사용 시점에만 동적 로드
+      const { toBlob } = await import('html-to-image');
       const blob = await toBlob(captureRef.current, {
         pixelRatio: 2,
         backgroundColor: '#FFFFFF',
