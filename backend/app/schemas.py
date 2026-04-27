@@ -10,7 +10,15 @@ Budget = Literal["low", "mid", "high"]
 TimeOfDay = Literal["brunch", "afternoon", "evening", "night"]
 PlacePref = Literal["indoor", "outdoor", "any"]
 Cuisine = Literal["korean", "western", "japanese", "asian"]
-Region = Literal["gangnam", "hongdae", "seongsu", "itaewon", "jamsil", "jongno", "hangang"]
+Region = Literal[
+    # 서울
+    "gangnam", "hongdae", "seongsu", "itaewon", "jamsil", "jongno", "hangang",
+    "yeouido", "mangwon", "yeonnam", "apgujeong",
+    # 인천
+    "songdo", "bupyeong", "yeongjong",
+    # 경기
+    "bundang", "pangyo", "ilsan", "suwon",
+]
 
 
 class Answers(BaseModel):
@@ -22,7 +30,7 @@ class Answers(BaseModel):
     time: Optional[list[TimeOfDay]] = None
     place: Optional[PlacePref] = None
     cuisine: Optional[list[Cuisine]] = None
-    region: Optional[list[Region]] = None
+    # region 은 사용자 입력이 아니라 시스템이 추천 — 출력 전용
 
 
 class CourseStep(BaseModel):
@@ -34,6 +42,7 @@ class CourseStep(BaseModel):
 class RecommendResponse(BaseModel):
     course: list[CourseStep]
     reason: str
+    region: Optional[str] = None  # 시스템이 코스에 맞춰 추천한 지역 (한글 라벨)
 
 
 # Users

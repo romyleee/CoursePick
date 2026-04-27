@@ -1,10 +1,10 @@
 import { useReducer } from 'react';
 import type {
-  Activity, Answers, Budget, Cuisine, Mood, PlacePref, Region, State, TimeOfDay,
+  Activity, Answers, Budget, Cuisine, Mood, PlacePref, State, TimeOfDay,
 } from '../api';
 import { EmojiButton } from './EmojiButton';
 
-type Key = 'state' | 'mood' | 'activity' | 'budget' | 'time' | 'place' | 'cuisine' | 'region';
+type Key = 'state' | 'mood' | 'activity' | 'budget' | 'time' | 'place' | 'cuisine';
 
 interface StepDef {
   key: Key;
@@ -53,20 +53,11 @@ const OPTIONAL: StepDef[] = [
     { value: 'japanese', emoji: '🍣', label: '일식' },
     { value: 'asian',    emoji: '🍜', label: '아시안' },
   ]},
-  { key: 'region', multi: true, question: '지역은? (여러 개 선택 가능)', options: [
-    { value: 'gangnam',  emoji: '🏙', label: '강남' },
-    { value: 'hongdae',  emoji: '🎨', label: '홍대' },
-    { value: 'seongsu',  emoji: '🏭', label: '성수' },
-    { value: 'itaewon',  emoji: '🌆', label: '이태원' },
-    { value: 'jamsil',   emoji: '🎢', label: '잠실' },
-    { value: 'jongno',   emoji: '🏯', label: '종로' },
-    { value: 'hangang',  emoji: '🌊', label: '한강' },
-  ]},
 ];
 
 type Vals = {
   state?: State; mood?: Mood; activity?: Activity; budget?: Budget;
-  time?: TimeOfDay[]; place?: PlacePref; cuisine?: Cuisine[]; region?: Region[];
+  time?: TimeOfDay[]; place?: PlacePref; cuisine?: Cuisine[];
 };
 
 type W = { step: number; ans: Vals };

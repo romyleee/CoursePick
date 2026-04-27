@@ -6,7 +6,14 @@ export type Budget = 'low' | 'mid' | 'high';
 export type TimeOfDay = 'brunch' | 'afternoon' | 'evening' | 'night';
 export type PlacePref = 'indoor' | 'outdoor' | 'any';
 export type Cuisine = 'korean' | 'western' | 'japanese' | 'asian';
-export type Region = 'gangnam' | 'hongdae' | 'seongsu' | 'itaewon' | 'jamsil' | 'jongno' | 'hangang';
+export type Region =
+  // 서울
+  | 'gangnam' | 'hongdae' | 'seongsu' | 'itaewon' | 'jamsil' | 'jongno' | 'hangang'
+  | 'yeouido' | 'mangwon' | 'yeonnam' | 'apgujeong'
+  // 인천
+  | 'songdo' | 'bupyeong' | 'yeongjong'
+  // 경기
+  | 'bundang' | 'pangyo' | 'ilsan' | 'suwon';
 
 export interface Answers {
   state: State;
@@ -16,13 +23,16 @@ export interface Answers {
   // 다중 선택
   time?: TimeOfDay[] | null;
   cuisine?: Cuisine[] | null;
-  region?: Region[] | null;
   // 단일 선택
   place?: PlacePref | null;
 }
 
 export interface CourseStep { step: number; type: string; name: string; }
-export interface RecommendResponse { course: CourseStep[]; reason: string; }
+export interface RecommendResponse {
+  course: CourseStep[];
+  reason: string;
+  region?: string | null;  // 시스템이 추천한 지역 (한글 라벨)
+}
 
 export interface User { id: number; nickname: string; created_at: string; }
 export interface Couple {

@@ -2,6 +2,7 @@ import json
 import random
 import secrets
 import string
+from collections import Counter
 from datetime import date, timedelta
 from functools import lru_cache
 from typing import Optional
@@ -17,6 +18,18 @@ ACTIVITY_PRIO = {"low": 1, "high": 0}
 BUDGET_PRIO = {"low": 0, "mid": 1, "high": 2}
 
 FAVORITE_WEIGHT = 3
+
+REGION_LABELS = {
+    # 서울
+    "gangnam": "강남", "hongdae": "홍대", "seongsu": "성수",
+    "itaewon": "이태원", "jamsil": "잠실", "jongno": "종로",
+    "hangang": "한강", "yeouido": "여의도", "mangwon": "망원",
+    "yeonnam": "연남", "apgujeong": "압구정",
+    # 인천
+    "songdo": "송도", "bupyeong": "부평", "yeongjong": "영종",
+    # 경기
+    "bundang": "분당", "pangyo": "판교", "ilsan": "일산", "suwon": "수원",
+}
 
 
 # ──────────────── code generation ────────────────
@@ -74,7 +87,6 @@ def merge_answers(a: Answers, b: Answers) -> tuple[Answers, str]:
     # 다중 선택 필드: 교집합
     time = _intersect(a.time, b.time)
     cuisine = _intersect(a.cuisine, b.cuisine)
-    region = _intersect(a.region, b.region)
 
     # 단일 필드
     place = a.place if a.place and a.place == b.place else None
@@ -87,14 +99,13 @@ def merge_answers(a: Answers, b: Answers) -> tuple[Answers, str]:
     if time: extras.append(f"시간 {','.join(time)}")
     if place: extras.append(f"장소 {place}")
     if cuisine: extras.append(f"음식 {','.join(cuisine)}")
-    if region: extras.append(f"지역 {','.join(region)}")
     if extras:
         note += " · " + ", ".join(extras)
 
     return (
         Answers(
             state=state, mood=mood, activity=activity, budget=budget,  # type: ignore[arg-type]
-            time=time, place=place, cuisine=cuisine, region=region,
+            time=time, place=place, cuisine=cuisine,
         ),
         note,
     )
@@ -162,12 +173,23 @@ def _matches_filters(c: dict, ans: Answers, course_type: str) -> bool:
     if ans.cuisine and course_type == "food":
         if c.get("cuisine") not in ans.cuisine:
             return False
-    # region: 코스 region 중 하나라도 사용자 선택에 들어 있으면 OK
-    if ans.region:
-        c_region = c.get("region") or []
-        if not any(r in c_region for r in ans.region):
-            return False
     return True
+
+
+def _suggest_region(picked: list[dict]) -> Optional[str]:
+    """선택된 코스들에서 공통 지역을 찾아 추천. 교집합 → 가장 빈번한 순."""
+    if not picked:
+        return None
+    region_sets = [set(c.get("region") or []) for c in picked]
+    common = set.intersection(*region_sets) if region_sets else set()
+    if common:
+        slug = random.choice(sorted(common))
+    else:
+        flat = [r for s in region_sets for r in s]
+        if not flat:
+            return None
+        slug = Counter(flat).most_common(1)[0][0]
+    return REGION_LABELS.get(slug, slug)
 
 
 def _pick(course_type: str, ans: Answers, exclude: set[str], favorites: set[str]) -> Optional[dict]:
@@ -176,7 +198,7 @@ def _pick(course_type: str, ans: Answers, exclude: set[str], favorites: set[str]
     # 1. strict: match all filters
     pool = [c for c in courses if _matches_filters(c, ans, course_type)]
 
-    # Relaxation order: place → time → region → cuisine
+    # Relaxation order: place → time → cuisine
     if not pool and ans.place and ans.place != "any":
         relaxed = ans.model_copy(update={"place": None})
         pool = [c for c in courses if _matches_filters(c, relaxed, course_type)]
@@ -185,12 +207,8 @@ def _pick(course_type: str, ans: Answers, exclude: set[str], favorites: set[str]
         relaxed = ans.model_copy(update={"place": None, "time": None})
         pool = [c for c in courses if _matches_filters(c, relaxed, course_type)]
 
-    if not pool and ans.region:
-        relaxed = ans.model_copy(update={"place": None, "time": None, "region": None})
-        pool = [c for c in courses if _matches_filters(c, relaxed, course_type)]
-
     if not pool and ans.cuisine and course_type == "food":
-        relaxed = ans.model_copy(update={"place": None, "time": None, "region": None, "cuisine": None})
+        relaxed = ans.model_copy(update={"place": None, "time": None, "cuisine": None})
         pool = [c for c in courses if _matches_filters(c, relaxed, course_type)]
 
     # 5. last resort: type + budget
@@ -218,6 +236,7 @@ def build_course(
     exclude = _recent_names(session, couple_id)
     favorites = _favorite_names(session, couple_id)
     course: list[CourseStep] = []
+    picked_full: list[dict] = []
     used: set[str] = set()
     for idx, ctype in enumerate(rule["course_types"], start=1):
         picked = _pick(ctype, answers, exclude | used, favorites)
@@ -225,7 +244,9 @@ def build_course(
             continue
         used.add(picked["name"])
         course.append(CourseStep(step=idx, type=picked["type"], name=picked["name"]))
+        picked_full.append(picked)
     reason = f"{extra_reason}\n{rule['reason']}".strip() if extra_reason else rule["reason"]
     if favorites & {s.name for s in course}:
         reason += "\n💖 최애 코스 포함"
-    return RecommendResponse(course=course, reason=reason)
+    region = _suggest_region(picked_full)
+    return RecommendResponse(course=course, reason=reason, region=region)

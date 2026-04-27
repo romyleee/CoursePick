@@ -45,9 +45,9 @@ export function ModeChoice({ onChoose, onBack, title }: Props) {
           onClick={() => onChoose('detailed')}
           className="block w-full rounded-3xl bg-ink p-6 text-left transition active:scale-[.99]"
         >
-          <p className="text-[11px] uppercase tracking-widest text-cream/70">Detailed · 8 questions</p>
+          <p className="text-[11px] uppercase tracking-widest text-cream/70">Detailed · 7 questions</p>
           <p className="mt-2 text-xl font-bold tracking-tight text-paper">자세한 추천</p>
-          <p className="mt-1 text-sm text-cream/70">기본 4개 + 시간 · 장소 · 음식 · 지역</p>
+          <p className="mt-1 text-sm text-cream/70">기본 4개 + 시간 · 장소 · 음식 선호</p>
           <p className="mt-2 text-xs text-cream/70">⏱ 약 1분</p>
         </button>
       </div>

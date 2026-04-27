@@ -18,10 +18,13 @@
         "tired"
       ],
       "region": [
+        "bundang",
         "gangnam",
         "hongdae",
+        "itaewon",
+        "pangyo",
         "seongsu",
-        "itaewon"
+        "songdo"
       ]
     },
     {
@@ -41,10 +44,13 @@
         "calm"
       ],
       "region": [
+        "bundang",
         "gangnam",
         "hongdae",
+        "itaewon",
+        "pangyo",
         "seongsu",
-        "itaewon"
+        "songdo"
       ]
     },
     {
@@ -66,10 +72,13 @@
         "calm"
       ],
       "region": [
+        "bundang",
         "gangnam",
         "hongdae",
+        "itaewon",
+        "pangyo",
         "seongsu",
-        "itaewon"
+        "songdo"
       ]
     },
     {
@@ -89,7 +98,10 @@
         "calm"
       ],
       "region": [
-        "jongno"
+        "bundang",
+        "jongno",
+        "pangyo",
+        "songdo"
       ]
     },
     {
@@ -111,9 +123,12 @@
         "calm"
       ],
       "region": [
+        "bundang",
         "gangnam",
+        "hongdae",
         "itaewon",
-        "hongdae"
+        "pangyo",
+        "songdo"
       ]
     },
     {
@@ -132,10 +147,13 @@
         "calm"
       ],
       "region": [
+        "bundang",
         "gangnam",
         "hongdae",
+        "itaewon",
+        "pangyo",
         "seongsu",
-        "itaewon"
+        "songdo"
       ]
     },
     {
@@ -156,10 +174,13 @@
         "focused"
       ],
       "region": [
+        "bundang",
         "gangnam",
         "hongdae",
+        "itaewon",
+        "pangyo",
         "seongsu",
-        "itaewon"
+        "songdo"
       ]
     },
     {
@@ -179,10 +200,13 @@
         "focused"
       ],
       "region": [
+        "bundang",
         "gangnam",
         "hongdae",
+        "itaewon",
+        "pangyo",
         "seongsu",
-        "itaewon"
+        "songdo"
       ]
     },
     {
@@ -202,10 +226,13 @@
         "calm"
       ],
       "region": [
+        "bundang",
         "gangnam",
         "hongdae",
+        "itaewon",
+        "pangyo",
         "seongsu",
-        "itaewon"
+        "songdo"
       ]
     },
     {
@@ -226,9 +253,12 @@
         "focused"
       ],
       "region": [
+        "bundang",
+        "gangnam",
         "hongdae",
         "jongno",
-        "gangnam"
+        "pangyo",
+        "songdo"
       ]
     },
     {
@@ -293,8 +323,8 @@
         "calm"
       ],
       "region": [
-        "jongno",
-        "gangnam"
+        "gangnam",
+        "jongno"
       ]
     },
     {
@@ -317,8 +347,8 @@
         "excited"
       ],
       "region": [
-        "jongno",
         "hongdae",
+        "jongno",
         "seongsu"
       ]
     },
@@ -341,7 +371,9 @@
         "calm"
       ],
       "region": [
-        "jamsil"
+        "ilsan",
+        "jamsil",
+        "songdo"
       ]
     },
     {
@@ -385,8 +417,8 @@
         "focused"
       ],
       "region": [
-        "jongno",
-        "hangang"
+        "hangang",
+        "jongno"
       ]
     },
     {
@@ -408,7 +440,9 @@
         "calm"
       ],
       "region": [
-        "hangang"
+        "hangang",
+        "songdo",
+        "yeongjong"
       ]
     },
     {
@@ -429,8 +463,8 @@
         "focused"
       ],
       "region": [
-        "jongno",
-        "itaewon"
+        "itaewon",
+        "jongno"
       ]
     },
     {
@@ -452,6 +486,7 @@
         "excited"
       ],
       "region": [
+        "bupyeong",
         "hongdae",
         "jongno"
       ]
@@ -474,10 +509,13 @@
         "excited"
       ],
       "region": [
+        "bundang",
+        "gangnam",
         "hongdae",
         "itaewon",
-        "gangnam",
-        "seongsu"
+        "pangyo",
+        "seongsu",
+        "songdo"
       ]
     },
     {
@@ -498,9 +536,12 @@
         "excited"
       ],
       "region": [
-        "jongno",
+        "bundang",
         "gangnam",
-        "hongdae"
+        "hongdae",
+        "jongno",
+        "pangyo",
+        "songdo"
       ]
     },
     {
@@ -520,9 +561,12 @@
         "calm"
       ],
       "region": [
-        "jongno",
+        "bundang",
         "gangnam",
-        "hongdae"
+        "hongdae",
+        "jongno",
+        "pangyo",
+        "songdo"
       ]
     },
     {
@@ -541,8 +585,11 @@
         "focused"
       ],
       "region": [
+        "bundang",
         "gangnam",
-        "itaewon"
+        "itaewon",
+        "pangyo",
+        "songdo"
       ]
     },
     {
@@ -562,9 +609,12 @@
         "excited"
       ],
       "region": [
+        "bundang",
+        "gangnam",
         "hongdae",
         "itaewon",
-        "gangnam"
+        "pangyo",
+        "songdo"
       ]
     },
     {
@@ -584,9 +634,12 @@
         "calm"
       ],
       "region": [
-        "jongno",
+        "bundang",
         "gangnam",
-        "hongdae"
+        "hongdae",
+        "jongno",
+        "pangyo",
+        "songdo"
       ]
     },
     {
@@ -606,9 +659,12 @@
         "excited"
       ],
       "region": [
-        "hongdae",
+        "bundang",
         "gangnam",
-        "jongno"
+        "hongdae",
+        "jongno",
+        "pangyo",
+        "songdo"
       ]
     },
     {
@@ -628,9 +684,12 @@
         "calm"
       ],
       "region": [
-        "hongdae",
+        "bundang",
         "gangnam",
-        "jongno"
+        "hongdae",
+        "jongno",
+        "pangyo",
+        "songdo"
       ]
     },
     {
@@ -649,9 +708,12 @@
         "excited"
       ],
       "region": [
+        "bundang",
         "gangnam",
+        "jamsil",
         "jongno",
-        "jamsil"
+        "pangyo",
+        "songdo"
       ]
     },
     {
@@ -671,10 +733,13 @@
         "focused"
       ],
       "region": [
+        "bundang",
+        "gangnam",
         "hongdae",
         "itaewon",
-        "gangnam",
-        "seongsu"
+        "pangyo",
+        "seongsu",
+        "songdo"
       ]
     },
     {
@@ -694,9 +759,12 @@
         "excited"
       ],
       "region": [
+        "bundang",
+        "gangnam",
         "hongdae",
         "itaewon",
-        "gangnam"
+        "pangyo",
+        "songdo"
       ]
     },
     {
@@ -716,9 +784,12 @@
         "calm"
       ],
       "region": [
-        "hongdae",
+        "bundang",
         "gangnam",
-        "jongno"
+        "hongdae",
+        "jongno",
+        "pangyo",
+        "songdo"
       ]
     },
     {
@@ -739,9 +810,12 @@
         "excited"
       ],
       "region": [
+        "bundang",
         "gangnam",
         "hongdae",
-        "jamsil"
+        "jamsil",
+        "pangyo",
+        "songdo"
       ]
     },
     {
@@ -762,9 +836,12 @@
         "excited"
       ],
       "region": [
+        "bundang",
         "gangnam",
         "hongdae",
-        "jamsil"
+        "jamsil",
+        "pangyo",
+        "songdo"
       ]
     },
     {
@@ -784,9 +861,12 @@
         "focused"
       ],
       "region": [
-        "jongno",
+        "bundang",
         "hongdae",
-        "seongsu"
+        "jongno",
+        "pangyo",
+        "seongsu",
+        "songdo"
       ]
     },
     {
@@ -806,7 +886,10 @@
         "excited"
       ],
       "region": [
-        "hangang"
+        "bundang",
+        "hangang",
+        "pangyo",
+        "songdo"
       ]
     },
     {
@@ -825,9 +908,12 @@
         "focused"
       ],
       "region": [
-        "seongsu",
+        "bundang",
         "hongdae",
-        "jongno"
+        "jongno",
+        "pangyo",
+        "seongsu",
+        "songdo"
       ]
     },
     {
@@ -847,9 +933,12 @@
         "excited"
       ],
       "region": [
+        "bundang",
         "gangnam",
+        "hongdae",
+        "pangyo",
         "seongsu",
-        "hongdae"
+        "songdo"
       ]
     },
     {
@@ -869,9 +958,12 @@
         "excited"
       ],
       "region": [
+        "bundang",
         "gangnam",
         "hongdae",
-        "jamsil"
+        "jamsil",
+        "pangyo",
+        "songdo"
       ]
     },
     {
@@ -893,8 +985,11 @@
         "calm"
       ],
       "region": [
+        "bundang",
+        "gangnam",
         "hongdae",
-        "gangnam"
+        "pangyo",
+        "songdo"
       ]
     },
     {
@@ -915,9 +1010,12 @@
         "focused"
       ],
       "region": [
-        "jongno",
+        "bundang",
         "hongdae",
-        "seongsu"
+        "jongno",
+        "pangyo",
+        "seongsu",
+        "songdo"
       ]
     },
     {
@@ -939,9 +1037,12 @@
         "calm"
       ],
       "region": [
-        "hongdae",
+        "bundang",
         "gangnam",
-        "seongsu"
+        "hongdae",
+        "pangyo",
+        "seongsu",
+        "songdo"
       ]
     },
     {
@@ -961,10 +1062,13 @@
         "excited"
       ],
       "region": [
+        "bundang",
         "gangnam",
         "hongdae",
+        "itaewon",
+        "pangyo",
         "seongsu",
-        "itaewon"
+        "songdo"
       ]
     },
     {
@@ -984,10 +1088,13 @@
         "excited"
       ],
       "region": [
+        "bundang",
         "gangnam",
         "hongdae",
+        "itaewon",
+        "pangyo",
         "seongsu",
-        "itaewon"
+        "songdo"
       ]
     },
     {
@@ -1006,10 +1113,13 @@
         "calm"
       ],
       "region": [
+        "bundang",
         "gangnam",
         "hongdae",
+        "itaewon",
+        "pangyo",
         "seongsu",
-        "itaewon"
+        "songdo"
       ]
     },
     {
@@ -1028,10 +1138,13 @@
         "calm"
       ],
       "region": [
+        "bundang",
         "gangnam",
         "hongdae",
+        "itaewon",
+        "pangyo",
         "seongsu",
-        "itaewon"
+        "songdo"
       ]
     },
     {
@@ -1052,10 +1165,13 @@
         "excited"
       ],
       "region": [
+        "bundang",
         "gangnam",
         "hongdae",
+        "itaewon",
+        "pangyo",
         "seongsu",
-        "itaewon"
+        "songdo"
       ]
     },
     {
@@ -1076,9 +1192,9 @@
         "excited"
       ],
       "region": [
-        "itaewon",
         "gangnam",
-        "hongdae"
+        "hongdae",
+        "itaewon"
       ]
     },
     {

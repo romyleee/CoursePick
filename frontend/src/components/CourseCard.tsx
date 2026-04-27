@@ -79,6 +79,11 @@ export function CourseCard({ data, onAccept, onRetry }: Props) {
             <span className="text-terracotta">갈래</span><span className="text-ink">말래</span>
           </span>
         </div>
+        {data.region && (
+          <p className="mb-3 text-base font-bold text-terracotta">
+            📍 오늘은 {data.region} 어때요?
+          </p>
+        )}
         <p className="mb-6 whitespace-pre-line text-sm leading-relaxed text-ink-3">{data.reason}</p>
 
         <ol className="space-y-3">
