@@ -1,0 +1,1121 @@
+{
+  "courses": [
+    {
+      "id": 1,
+      "type": "cafe",
+      "name": "조용한 브런치 카페",
+      "budget": [
+        "mid"
+      ],
+      "time": [
+        "brunch",
+        "afternoon"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "calm",
+        "tired"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "cafe",
+      "name": "감성 디저트 카페",
+      "budget": [
+        "mid"
+      ],
+      "time": [
+        "afternoon",
+        "evening"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "calm"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "cafe",
+      "name": "북카페",
+      "budget": [
+        "low",
+        "mid"
+      ],
+      "time": [
+        "afternoon",
+        "evening"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "focused",
+        "calm"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "cafe",
+      "name": "한옥 카페",
+      "budget": [
+        "mid"
+      ],
+      "time": [
+        "brunch",
+        "afternoon"
+      ],
+      "place": "both",
+      "cuisine": null,
+      "moods": [
+        "calm"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "cafe",
+      "name": "루프탑 카페",
+      "budget": [
+        "high",
+        "mid"
+      ],
+      "time": [
+        "evening",
+        "night"
+      ],
+      "place": "outdoor",
+      "cuisine": null,
+      "moods": [
+        "excited",
+        "calm"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "cafe",
+      "name": "빈티지 카페",
+      "budget": [
+        "mid"
+      ],
+      "time": [
+        "afternoon"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "calm"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "cafe",
+      "name": "베이커리 카페",
+      "budget": [
+        "mid"
+      ],
+      "time": [
+        "brunch",
+        "afternoon"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "calm",
+        "focused"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "cafe",
+      "name": "스페셜티 커피숍",
+      "budget": [
+        "mid"
+      ],
+      "time": [
+        "brunch",
+        "afternoon"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "focused"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "cafe",
+      "name": "정원 카페",
+      "budget": [
+        "mid"
+      ],
+      "time": [
+        "brunch",
+        "afternoon"
+      ],
+      "place": "outdoor",
+      "cuisine": null,
+      "moods": [
+        "calm"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "cafe",
+      "name": "서점 안 카페",
+      "budget": [
+        "low",
+        "mid"
+      ],
+      "time": [
+        "afternoon",
+        "evening"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "focused"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "walk",
+      "name": "한강 산책 코스",
+      "budget": [
+        "low",
+        "mid",
+        "high"
+      ],
+      "time": [
+        "afternoon",
+        "evening"
+      ],
+      "place": "outdoor",
+      "cuisine": null,
+      "moods": [
+        "calm"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "walk",
+      "name": "벚꽃길 산책",
+      "budget": [
+        "low",
+        "mid",
+        "high"
+      ],
+      "time": [
+        "afternoon"
+      ],
+      "place": "outdoor",
+      "cuisine": null,
+      "moods": [
+        "calm"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "walk",
+      "name": "단풍 트레일",
+      "budget": [
+        "low",
+        "mid",
+        "high"
+      ],
+      "time": [
+        "afternoon"
+      ],
+      "place": "outdoor",
+      "cuisine": null,
+      "moods": [
+        "calm"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "walk",
+      "name": "도심 골목 탐방",
+      "budget": [
+        "low",
+        "mid",
+        "high"
+      ],
+      "time": [
+        "afternoon",
+        "evening"
+      ],
+      "place": "outdoor",
+      "cuisine": null,
+      "moods": [
+        "calm",
+        "excited"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "walk",
+      "name": "호수공원 산책",
+      "budget": [
+        "low",
+        "mid",
+        "high"
+      ],
+      "time": [
+        "afternoon",
+        "evening"
+      ],
+      "place": "outdoor",
+      "cuisine": null,
+      "moods": [
+        "calm"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "walk",
+      "name": "야경 다리 산책",
+      "budget": [
+        "low",
+        "mid",
+        "high"
+      ],
+      "time": [
+        "evening",
+        "night"
+      ],
+      "place": "outdoor",
+      "cuisine": null,
+      "moods": [
+        "calm"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "walk",
+      "name": "둘레길 트레킹",
+      "budget": [
+        "low",
+        "mid",
+        "high"
+      ],
+      "time": [
+        "brunch",
+        "afternoon"
+      ],
+      "place": "outdoor",
+      "cuisine": null,
+      "moods": [
+        "focused"
+      ]
+    },
+    {
+      "id": 18,
+      "type": "walk",
+      "name": "해변 산책",
+      "budget": [
+        "low",
+        "mid",
+        "high"
+      ],
+      "time": [
+        "afternoon",
+        "evening"
+      ],
+      "place": "outdoor",
+      "cuisine": null,
+      "moods": [
+        "calm"
+      ]
+    },
+    {
+      "id": 19,
+      "type": "walk",
+      "name": "남산 트레일",
+      "budget": [
+        "low",
+        "mid",
+        "high"
+      ],
+      "time": [
+        "afternoon"
+      ],
+      "place": "outdoor",
+      "cuisine": null,
+      "moods": [
+        "focused"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "walk",
+      "name": "야시장 골목",
+      "budget": [
+        "low",
+        "mid",
+        "high"
+      ],
+      "time": [
+        "evening",
+        "night"
+      ],
+      "place": "outdoor",
+      "cuisine": null,
+      "moods": [
+        "excited"
+      ]
+    },
+    {
+      "id": 21,
+      "type": "food",
+      "name": "분위기 좋은 파스타집",
+      "budget": [
+        "high",
+        "mid"
+      ],
+      "time": [
+        "brunch",
+        "evening"
+      ],
+      "place": "indoor",
+      "cuisine": "western",
+      "moods": [
+        "excited"
+      ]
+    },
+    {
+      "id": 22,
+      "type": "food",
+      "name": "캐주얼 한식 맛집",
+      "budget": [
+        "mid"
+      ],
+      "time": [
+        "brunch",
+        "evening"
+      ],
+      "place": "indoor",
+      "cuisine": "korean",
+      "moods": [
+        "calm",
+        "excited"
+      ]
+    },
+    {
+      "id": 23,
+      "type": "food",
+      "name": "노포 분식",
+      "budget": [
+        "low"
+      ],
+      "time": [
+        "brunch",
+        "afternoon"
+      ],
+      "place": "indoor",
+      "cuisine": "korean",
+      "moods": [
+        "calm"
+      ]
+    },
+    {
+      "id": 24,
+      "type": "food",
+      "name": "오마카세",
+      "budget": [
+        "high"
+      ],
+      "time": [
+        "evening"
+      ],
+      "place": "indoor",
+      "cuisine": "japanese",
+      "moods": [
+        "focused"
+      ]
+    },
+    {
+      "id": 25,
+      "type": "food",
+      "name": "수제버거 전문점",
+      "budget": [
+        "mid"
+      ],
+      "time": [
+        "brunch",
+        "evening"
+      ],
+      "place": "indoor",
+      "cuisine": "western",
+      "moods": [
+        "excited"
+      ]
+    },
+    {
+      "id": 26,
+      "type": "food",
+      "name": "솥밥 정식",
+      "budget": [
+        "mid"
+      ],
+      "time": [
+        "brunch",
+        "evening"
+      ],
+      "place": "indoor",
+      "cuisine": "korean",
+      "moods": [
+        "calm"
+      ]
+    },
+    {
+      "id": 27,
+      "type": "food",
+      "name": "이자카야",
+      "budget": [
+        "mid"
+      ],
+      "time": [
+        "evening",
+        "night"
+      ],
+      "place": "indoor",
+      "cuisine": "japanese",
+      "moods": [
+        "excited"
+      ]
+    },
+    {
+      "id": 28,
+      "type": "food",
+      "name": "베트남 쌀국수",
+      "budget": [
+        "low"
+      ],
+      "time": [
+        "brunch",
+        "evening"
+      ],
+      "place": "indoor",
+      "cuisine": "asian",
+      "moods": [
+        "calm"
+      ]
+    },
+    {
+      "id": 29,
+      "type": "food",
+      "name": "화로구이 고기집",
+      "budget": [
+        "high"
+      ],
+      "time": [
+        "evening"
+      ],
+      "place": "indoor",
+      "cuisine": "korean",
+      "moods": [
+        "excited"
+      ]
+    },
+    {
+      "id": 30,
+      "type": "food",
+      "name": "비건 레스토랑",
+      "budget": [
+        "mid"
+      ],
+      "time": [
+        "brunch",
+        "evening"
+      ],
+      "place": "indoor",
+      "cuisine": "western",
+      "moods": [
+        "focused"
+      ]
+    },
+    {
+      "id": 31,
+      "type": "food",
+      "name": "타코 & 부리또",
+      "budget": [
+        "mid"
+      ],
+      "time": [
+        "brunch",
+        "evening"
+      ],
+      "place": "indoor",
+      "cuisine": "western",
+      "moods": [
+        "excited"
+      ]
+    },
+    {
+      "id": 32,
+      "type": "food",
+      "name": "딤섬 전문점",
+      "budget": [
+        "mid"
+      ],
+      "time": [
+        "brunch",
+        "evening"
+      ],
+      "place": "indoor",
+      "cuisine": "asian",
+      "moods": [
+        "calm"
+      ]
+    },
+    {
+      "id": 33,
+      "type": "activity",
+      "name": "방탈출 카페",
+      "budget": [
+        "mid"
+      ],
+      "time": [
+        "afternoon",
+        "evening"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "focused",
+        "excited"
+      ]
+    },
+    {
+      "id": 34,
+      "type": "activity",
+      "name": "볼링장",
+      "budget": [
+        "mid"
+      ],
+      "time": [
+        "afternoon",
+        "evening",
+        "night"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "excited"
+      ]
+    },
+    {
+      "id": 35,
+      "type": "activity",
+      "name": "전시회 관람",
+      "budget": [
+        "mid"
+      ],
+      "time": [
+        "brunch",
+        "afternoon"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "focused"
+      ]
+    },
+    {
+      "id": 36,
+      "type": "activity",
+      "name": "한강 자전거 라이딩",
+      "budget": [
+        "low"
+      ],
+      "time": [
+        "afternoon",
+        "evening"
+      ],
+      "place": "outdoor",
+      "cuisine": null,
+      "moods": [
+        "excited"
+      ]
+    },
+    {
+      "id": 37,
+      "type": "activity",
+      "name": "공방 원데이클래스",
+      "budget": [
+        "mid"
+      ],
+      "time": [
+        "afternoon"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "focused"
+      ]
+    },
+    {
+      "id": 38,
+      "type": "activity",
+      "name": "실내 클라이밍",
+      "budget": [
+        "mid"
+      ],
+      "time": [
+        "afternoon",
+        "evening"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "excited"
+      ]
+    },
+    {
+      "id": 39,
+      "type": "activity",
+      "name": "VR 체험관",
+      "budget": [
+        "mid"
+      ],
+      "time": [
+        "afternoon",
+        "evening"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "excited"
+      ]
+    },
+    {
+      "id": 40,
+      "type": "activity",
+      "name": "보드게임 카페",
+      "budget": [
+        "mid"
+      ],
+      "time": [
+        "afternoon",
+        "evening",
+        "night"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "focused",
+        "calm"
+      ]
+    },
+    {
+      "id": 41,
+      "type": "activity",
+      "name": "독립영화관",
+      "budget": [
+        "mid"
+      ],
+      "time": [
+        "afternoon",
+        "evening"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "calm",
+        "focused"
+      ]
+    },
+    {
+      "id": 42,
+      "type": "activity",
+      "name": "사진관 (커플사진)",
+      "budget": [
+        "high",
+        "mid"
+      ],
+      "time": [
+        "brunch",
+        "afternoon"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "focused",
+        "calm"
+      ]
+    },
+    {
+      "id": 43,
+      "type": "dessert",
+      "name": "수제 아이스크림",
+      "budget": [
+        "low"
+      ],
+      "time": [
+        "afternoon"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "calm",
+        "excited"
+      ]
+    },
+    {
+      "id": 44,
+      "type": "dessert",
+      "name": "프리미엄 디저트 바",
+      "budget": [
+        "high"
+      ],
+      "time": [
+        "afternoon",
+        "evening"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "excited"
+      ]
+    },
+    {
+      "id": 45,
+      "type": "dessert",
+      "name": "마카롱 전문점",
+      "budget": [
+        "mid"
+      ],
+      "time": [
+        "afternoon"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "calm"
+      ]
+    },
+    {
+      "id": 46,
+      "type": "dessert",
+      "name": "전통 화과자",
+      "budget": [
+        "mid"
+      ],
+      "time": [
+        "afternoon"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "calm"
+      ]
+    },
+    {
+      "id": 47,
+      "type": "dessert",
+      "name": "젤라또 가게",
+      "budget": [
+        "low",
+        "mid"
+      ],
+      "time": [
+        "afternoon",
+        "evening"
+      ],
+      "place": "indoor",
+      "cuisine": null,
+      "moods": [
+        "excited"
+      ]
+    },
+    {
+      "id": 48,
+      "type": "view",
+      "name": "야경 명소 루프탑",
+      "budget": [
+        "high"
+      ],
+      "time": [
+        "evening",
+        "night"
+      ],
+      "place": "outdoor",
+      "cuisine": null,
+      "moods": [
+        "calm",
+        "excited"
+      ]
+    },
+    {
+      "id": 49,
+      "type": "view",
+      "name": "전망대",
+      "budget": [
+        "mid"
+      ],
+      "time": [
+        "afternoon",
+        "evening",
+        "night"
+      ],
+      "place": "both",
+      "cuisine": null,
+      "moods": [
+        "excited"
+      ]
+    },
+    {
+      "id": 50,
+      "type": "view",
+      "name": "한강 유람선",
+      "budget": [
+        "high"
+      ],
+      "time": [
+        "afternoon",
+        "evening"
+      ],
+      "place": "outdoor",
+      "cuisine": null,
+      "moods": [
+        "excited"
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "match": {
+        "state": "tired",
+        "mood": "calm",
+        "activity": "low"
+      },
+      "course_types": [
+        "cafe",
+        "walk",
+        "dessert"
+      ],
+      "reason": "피곤+조용 → 카페 중심 코스"
+    },
+    {
+      "match": {
+        "state": "tired",
+        "mood": "calm",
+        "activity": "high"
+      },
+      "course_types": [
+        "cafe",
+        "walk",
+        "view"
+      ],
+      "reason": "피곤한데 가볍게 움직이고 싶을 때"
+    },
+    {
+      "match": {
+        "state": "good",
+        "mood": "excited",
+        "activity": "high"
+      },
+      "course_types": [
+        "activity",
+        "food",
+        "view"
+      ],
+      "reason": "기분 좋고 활동적 → 액티비티 중심"
+    },
+    {
+      "match": {
+        "state": "good",
+        "mood": "excited",
+        "activity": "low"
+      },
+      "course_types": [
+        "food",
+        "dessert",
+        "view"
+      ],
+      "reason": "기분 좋게 맛있는 거 먹는 코스"
+    },
+    {
+      "match": {
+        "state": "normal",
+        "mood": "focused",
+        "activity": "low"
+      },
+      "course_types": [
+        "activity",
+        "food",
+        "cafe"
+      ],
+      "reason": "차분히 즐기는 문화 코스"
+    },
+    {
+      "match": {
+        "state": "normal",
+        "mood": "focused",
+        "activity": "high"
+      },
+      "course_types": [
+        "activity",
+        "food",
+        "cafe"
+      ],
+      "reason": "집중해서 즐기는 액티비티"
+    },
+    {
+      "match": {
+        "state": "normal",
+        "mood": "calm",
+        "activity": "low"
+      },
+      "course_types": [
+        "cafe",
+        "walk",
+        "dessert"
+      ],
+      "reason": "여유로운 산책 코스"
+    },
+    {
+      "match": {
+        "state": "good",
+        "mood": "calm",
+        "activity": "low"
+      },
+      "course_types": [
+        "walk",
+        "cafe",
+        "dessert"
+      ],
+      "reason": "기분 좋은 여유 코스"
+    },
+    {
+      "match": {
+        "state": "good",
+        "mood": "calm",
+        "activity": "high"
+      },
+      "course_types": [
+        "walk",
+        "activity",
+        "food"
+      ],
+      "reason": "기분 좋게 가볍게 움직이는 코스"
+    },
+    {
+      "match": {
+        "state": "good",
+        "mood": "focused",
+        "activity": "low"
+      },
+      "course_types": [
+        "activity",
+        "cafe",
+        "food"
+      ],
+      "reason": "차분히 몰입하는 데이트"
+    },
+    {
+      "match": {
+        "state": "good",
+        "mood": "focused",
+        "activity": "high"
+      },
+      "course_types": [
+        "activity",
+        "food",
+        "view"
+      ],
+      "reason": "에너지 넘치는 도전 코스"
+    },
+    {
+      "match": {
+        "state": "normal",
+        "mood": "excited",
+        "activity": "low"
+      },
+      "course_types": [
+        "food",
+        "cafe",
+        "dessert"
+      ],
+      "reason": "맛있는 거 먹으며 텐션업"
+    },
+    {
+      "match": {
+        "state": "normal",
+        "mood": "excited",
+        "activity": "high"
+      },
+      "course_types": [
+        "activity",
+        "food",
+        "view"
+      ],
+      "reason": "활기찬 데이트 코스"
+    },
+    {
+      "match": {
+        "state": "tired",
+        "mood": "excited",
+        "activity": "low"
+      },
+      "course_types": [
+        "food",
+        "cafe",
+        "dessert"
+      ],
+      "reason": "쉬면서 기분전환"
+    },
+    {
+      "match": {
+        "state": "tired",
+        "mood": "excited",
+        "activity": "high"
+      },
+      "course_types": [
+        "food",
+        "activity",
+        "view"
+      ],
+      "reason": "피곤해도 기분전환 코스"
+    },
+    {
+      "match": {
+        "state": "tired",
+        "mood": "focused",
+        "activity": "low"
+      },
+      "course_types": [
+        "cafe",
+        "activity",
+        "food"
+      ],
+      "reason": "조용히 몰입하는 코스"
+    },
+    {
+      "match": {
+        "state": "tired",
+        "mood": "focused",
+        "activity": "high"
+      },
+      "course_types": [
+        "activity",
+        "cafe",
+        "food"
+      ],
+      "reason": "피곤해도 가벼운 액티비티"
+    },
+    {
+      "match": {
+        "state": "normal",
+        "mood": "calm",
+        "activity": "high"
+      },
+      "course_types": [
+        "walk",
+        "activity",
+        "cafe"
+      ],
+      "reason": "여유 있게 움직이는 코스"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.env
+
+# DB & uploads
+backend/app.db
+backend/storage/photos/*
+!backend/storage/photos/.gitkeep
+
+# Node
+node_modules/
+.cache/
+dist/
+.vite/
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Netlify
+.netlify/
