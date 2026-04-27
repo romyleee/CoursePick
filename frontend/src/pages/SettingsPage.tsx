@@ -1,33 +1,17 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSession } from '../hooks/useSession';
-import { clearCouple, rename } from '../session';
+import { clearCouple } from '../session';
 
 export function SettingsPage() {
   const { session, setSession } = useSession();
   const navigate = useNavigate();
-  const [name, setName] = useState(session?.nickname ?? '');
-  const [busy, setBusy] = useState(false);
-  const [msg, setMsg] = useState<{ text: string; isError: boolean } | null>(null);
-
-  const save = async () => {
-    if (!name.trim() || name === session?.nickname) return;
-    setBusy(true);
-    try {
-      const next = await rename(name.trim());
-      setSession(next);
-      setMsg({ text: '저장됨', isError: false });
-    } catch (e) {
-      setMsg({ text: (e as Error).message, isError: true });
-    } finally {
-      setBusy(false);
-    }
-  };
+  const [msg, setMsg] = useState<string | null>(null);
 
   const leaveCouple = () => {
     const next = clearCouple();
     if (next) setSession(next);
-    setMsg({ text: '커플 모드 해제됨', isError: false });
+    setMsg('커플 모드 해제됨');
   };
 
   return (
@@ -41,25 +25,16 @@ export function SettingsPage() {
         </div>
       </header>
 
-      <Section title="닉네임">
-        <input
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          maxLength={30}
-          className="w-full rounded-xl border border-line bg-cream/50 px-4 py-3 text-ink"
-        />
-        <button
-          onClick={save}
-          disabled={busy || !name.trim() || name === session?.nickname}
-          className="mt-3 w-full rounded-xl bg-ink py-3 font-bold text-paper disabled:opacity-30"
-        >
-          {busy ? '저장 중...' : '저장'}
-        </button>
-        {msg && (
-          <p className={`mt-2 text-center text-xs ${msg.isError ? 'text-danger-2' : 'text-ink-3'}`}>
-            {msg.text}
-          </p>
-        )}
+      <Section title="내 정보">
+        <div className="flex items-center justify-between rounded-xl border border-line bg-cream/50 px-4 py-3">
+          <span className="text-xs uppercase tracking-widest text-ink-3">표시 이름</span>
+          <span className="text-base font-bold text-ink">
+            게스트 {session?.userId ?? '-'}
+          </span>
+        </div>
+        <p className="mt-2 text-xs text-ink-3">
+          닉네임 수정은 곧 지원될 예정이에요.
+        </p>
       </Section>
 
       <Section title="커플 모드">
@@ -83,6 +58,7 @@ export function SettingsPage() {
             현재 솔로 모드입니다. 둘이 추천 받기 또는 코드 참가 시 커플 연결됩니다.
           </p>
         )}
+        {msg && <p className="mt-2 text-center text-xs text-ink-3">{msg}</p>}
       </Section>
 
       <Section title="정보">
