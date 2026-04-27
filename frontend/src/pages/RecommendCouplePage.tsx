@@ -6,9 +6,11 @@ import { CourseCard } from '../components/CourseCard';
 import { LoadingProgress } from '../components/LoadingProgress';
 import { ModeChoice } from '../components/ModeChoice';
 import { useSession } from '../hooks/useSession';
-import { createCoupleRoom } from '../session';
+import { commitCouple } from '../session';
 
 type Stage = 'creating' | 'lobby' | 'choice' | 'wizard' | 'waiting' | 'done';
+
+interface TransientCouple { id: number; code: string; }
 
 export function RecommendCouplePage() {
   const { session, setSession } = useSession();
@@ -19,40 +21,43 @@ export function RecommendCouplePage() {
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState<string | null>(null);
   const [progress, setProgress] = useState({ couple: false, session: false });
+  // 결과 나오기 전까지 localStorage 에 안 박는 transient 커플 정보
+  const [tcouple, setTcouple] = useState<TransientCouple | null>(null);
 
-  // 1) 방 만들기 (단계별 progress 추적)
+  // 1) 방 만들기 (또는 기존 커플 재사용)
   useEffect(() => {
     if (!session || stage !== 'creating') return;
     let cancelled = false;
     (async () => {
       try {
-        let s = session;
-        if (s.coupleId) {
-          // 이미 커플 모드면 1단계 즉시 완료
-          if (!cancelled) setProgress(p => ({ ...p, couple: true }));
-        } else {
-          s = await createCoupleRoom();
+        let coupleId = session.coupleId;
+        let inviteCode = session.inviteCode;
+
+        if (!coupleId || !inviteCode) {
+          // 새 커플 생성 (localStorage 는 아직 안 건드림)
+          const c = await api.createCouple(session.userId);
           if (cancelled) return;
-          setSession(s);
-          setProgress(p => ({ ...p, couple: true }));
+          coupleId = c.id;
+          inviteCode = c.invite_code;
         }
+        setTcouple({ id: coupleId, code: inviteCode });
+        setProgress(p => ({ ...p, couple: true }));
 
         const created = await api.createSession({
-          mode: 'couple', user_id: s.userId, couple_id: s.coupleId,
+          mode: 'couple', user_id: session.userId, couple_id: coupleId,
         });
         if (cancelled) return;
         setProgress(p => ({ ...p, session: true }));
         setData(created);
-        // 100% 애니메이션 잠깐 보여주고 lobby 로
         setTimeout(() => { if (!cancelled) setStage('lobby'); }, 350);
       } catch (e) {
         if (!cancelled) setError((e as Error).message);
       }
     })();
     return () => { cancelled = true; };
-  }, [session, stage, setSession]);
+  }, [session, stage]);
 
-  // 2) wizard 또는 waiting 동안 파트너 상태 폴링
+  // 2) 폴링
   useEffect(() => {
     if (!data || (stage !== 'wizard' && stage !== 'waiting')) return;
     const interval = stage === 'waiting' ? 2000 : 4000;
@@ -65,6 +70,14 @@ export function RecommendCouplePage() {
     }, interval);
     return () => clearInterval(t);
   }, [stage, data]);
+
+  // 3) 결과 나온 시점에만 localStorage 에 commit (커플 모드 확정)
+  useEffect(() => {
+    if (stage !== 'done' || !tcouple || !session) return;
+    if (session.coupleId === tcouple.id) return;
+    const next = commitCouple(tcouple.id, tcouple.code);
+    if (next) setSession(next);
+  }, [stage, tcouple, session, setSession]);
 
   const submit = async (answers: Answers) => {
     if (!session || !data) return;
@@ -122,7 +135,6 @@ export function RecommendCouplePage() {
     );
   }
 
-  // 내 진행 상태
   const isCreator = data.a_user_id === session?.userId;
   const myDone = isCreator ? data.a_done : data.b_done;
   const partnerDone = isCreator ? data.b_done : data.a_done;

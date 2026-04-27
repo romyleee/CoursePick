@@ -5,9 +5,11 @@ import { AnswersWizard } from '../components/AnswersWizard';
 import { CourseCard } from '../components/CourseCard';
 import { ModeChoice } from '../components/ModeChoice';
 import { useSession } from '../hooks/useSession';
-import { joinCoupleRoom } from '../session';
+import { commitCouple, transientJoinCouple } from '../session';
 
 type Stage = 'enter' | 'choice' | 'wizard' | 'waiting' | 'done';
+
+interface TransientCouple { id: number; code: string; }
 
 export function JoinPage() {
   const { session, setSession } = useSession();
@@ -19,12 +21,13 @@ export function JoinPage() {
   const [data, setData] = useState<SessionData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [tcouple, setTcouple] = useState<TransientCouple | null>(null);
 
   useEffect(() => {
     if (params.get('code')) setCode(params.get('code')!.toUpperCase());
   }, [params]);
 
-  // wizard / waiting 동안 파트너 상태 폴링
+  // 폴링
   useEffect(() => {
     if (!data || (stage !== 'wizard' && stage !== 'waiting')) return;
     const interval = stage === 'waiting' ? 2000 : 4000;
@@ -38,20 +41,30 @@ export function JoinPage() {
     return () => clearInterval(t);
   }, [stage, data]);
 
+  // 결과 시점에 commit (커플 모드 확정)
+  useEffect(() => {
+    if (stage !== 'done' || !tcouple || !session) return;
+    if (session.coupleId === tcouple.id) return;
+    const next = commitCouple(tcouple.id, tcouple.code);
+    if (next) setSession(next);
+  }, [stage, tcouple, session, setSession]);
+
   const onConfirmCode = async () => {
     if (!session || !code.trim()) return;
     setBusy(true); setError(null);
     try {
-      const s = await api.getSession(code.trim().toUpperCase());
+      const upper = code.trim().toUpperCase();
+      const s = await api.getSession(upper);
       if (s.mode !== 'couple') { setError('커플 세션이 아닙니다'); return; }
       setData(s);
 
-      if (s.couple_id && session.coupleId !== s.couple_id) {
+      // 백엔드에는 join 시키되 (B 자리 잡기 위해) localStorage 는 건드리지 않음
+      if (s.couple_id) {
         try {
           const c = await api.getCouple(s.couple_id);
-          const next = await joinCoupleRoom(c.invite_code);
-          setSession(next);
-        } catch { /* ignore */ }
+          await transientJoinCouple(c.invite_code, session.userId);
+          setTcouple({ id: c.id, code: c.invite_code });
+        } catch { /* ignore: 이미 join 됐거나 충돌 */ }
       }
 
       if (s.ready) { setStage('done'); return; }

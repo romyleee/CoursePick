@@ -69,22 +69,25 @@ export async function rename(nickname: string): Promise<LocalSession> {
   }
 }
 
-export async function createCoupleRoom(): Promise<LocalSession> {
+/**
+ * 결과까지 성공적으로 나왔을 때 localStorage 에 커플 ID/코드를 commit.
+ * 그 전엔 아무 것도 저장하지 않아 Solo Mode 가 유지됨.
+ */
+export function commitCouple(coupleId: number, inviteCode: string): LocalSession | null {
   const s = load();
-  if (!s) throw new Error('no session');
-  const couple = await api.createCouple(s.userId);
-  const next = { ...s, coupleId: couple.id, inviteCode: couple.invite_code };
+  if (!s) return null;
+  if (s.coupleId === coupleId) return s; // already committed
+  const next = { ...s, coupleId, inviteCode };
   save(next);
   return next;
 }
 
-export async function joinCoupleRoom(code: string): Promise<LocalSession> {
-  const s = load();
-  if (!s) throw new Error('no session');
-  const couple = await api.joinCouple(code, s.userId);
-  const next = { ...s, coupleId: couple.id, inviteCode: couple.invite_code };
-  save(next);
-  return next;
+/**
+ * 백엔드에 커플을 join 시키되 localStorage 는 건드리지 않는다.
+ * 결과 단계에서 commitCouple() 로 따로 커밋.
+ */
+export async function transientJoinCouple(inviteCode: string, userId: number) {
+  return await api.joinCouple(inviteCode, userId);
 }
 
 export function clearCouple(): LocalSession | null {
