@@ -53,32 +53,48 @@ def _data() -> dict:
 
 # ──────────────── merge ────────────────
 
+def _intersect(a: Optional[list], b: Optional[list]) -> Optional[list]:
+    """두 리스트의 교집합. 한쪽이 비어 있으면 다른 쪽 사용."""
+    if not a and not b:
+        return None
+    if not a:
+        return b
+    if not b:
+        return a
+    common = [x for x in a if x in b]
+    return common or None  # 교집합 없으면 None (필터 해제)
+
+
 def merge_answers(a: Answers, b: Answers) -> tuple[Answers, str]:
     state = a.state if STATE_PRIO[a.state] >= STATE_PRIO[b.state] else b.state
     activity = "low" if "low" in (a.activity, b.activity) else "high"
     budget = a.budget if BUDGET_PRIO[a.budget] <= BUDGET_PRIO[b.budget] else b.budget
     mood = a.mood if a.mood == b.mood else "calm"
 
-    # Optional dimensions: take A's value if both agree, else "any"
-    time = a.time if a.time and a.time == b.time else None
+    # 다중 선택 필드: 교집합
+    time = _intersect(a.time, b.time)
+    cuisine = _intersect(a.cuisine, b.cuisine)
+    region = _intersect(a.region, b.region)
+
+    # 단일 필드
     place = a.place if a.place and a.place == b.place else None
-    cuisine = a.cuisine if a.cuisine and a.cuisine == b.cuisine else None
 
     note = (
         f"둘의 답을 합쳤어요 — 컨디션 {state}, 분위기 {mood}, "
         f"활동 {activity}, 예산 {budget}"
     )
-    if time or place or cuisine:
-        extras = []
-        if time: extras.append(f"시간 {time}")
-        if place: extras.append(f"장소 {place}")
-        if cuisine: extras.append(f"음식 {cuisine}")
+    extras = []
+    if time: extras.append(f"시간 {','.join(time)}")
+    if place: extras.append(f"장소 {place}")
+    if cuisine: extras.append(f"음식 {','.join(cuisine)}")
+    if region: extras.append(f"지역 {','.join(region)}")
+    if extras:
         note += " · " + ", ".join(extras)
 
     return (
         Answers(
             state=state, mood=mood, activity=activity, budget=budget,  # type: ignore[arg-type]
-            time=time, place=place, cuisine=cuisine,
+            time=time, place=place, cuisine=cuisine, region=region,
         ),
         note,
     )
@@ -127,20 +143,29 @@ def _favorite_names(session: Session, couple_id: Optional[int]) -> set[str]:
 
 
 def _matches_filters(c: dict, ans: Answers, course_type: str) -> bool:
-    """Check optional time/place/cuisine filters."""
+    """Check optional filters. Lists = match if any element overlaps."""
     if c["type"] != course_type:
         return False
     if ans.budget not in (c.get("budget") or []):
         return False
+    # time: 코스의 time 중 하나라도 사용자 선택에 들어 있으면 OK
     if ans.time:
-        if ans.time not in (c.get("time") or []):
+        c_time = c.get("time") or []
+        if not any(t in c_time for t in ans.time):
             return False
+    # place
     if ans.place and ans.place != "any":
         cp = c.get("place")
         if cp != ans.place and cp != "both":
             return False
-    if ans.cuisine and ans.cuisine != "any" and course_type == "food":
-        if c.get("cuisine") != ans.cuisine:
+    # cuisine: food 타입에서만 적용. 코스 cuisine이 사용자 선택 중 하나면 OK
+    if ans.cuisine and course_type == "food":
+        if c.get("cuisine") not in ans.cuisine:
+            return False
+    # region: 코스 region 중 하나라도 사용자 선택에 들어 있으면 OK
+    if ans.region:
+        c_region = c.get("region") or []
+        if not any(r in c_region for r in ans.region):
             return False
     return True
 
@@ -151,20 +176,21 @@ def _pick(course_type: str, ans: Answers, exclude: set[str], favorites: set[str]
     # 1. strict: match all filters
     pool = [c for c in courses if _matches_filters(c, ans, course_type)]
 
-    # Relaxation order: place → time → cuisine (cuisine is strongest preference)
-    # 2. drop place
+    # Relaxation order: place → time → region → cuisine
     if not pool and ans.place and ans.place != "any":
         relaxed = ans.model_copy(update={"place": None})
         pool = [c for c in courses if _matches_filters(c, relaxed, course_type)]
 
-    # 3. drop time
     if not pool and ans.time:
         relaxed = ans.model_copy(update={"place": None, "time": None})
         pool = [c for c in courses if _matches_filters(c, relaxed, course_type)]
 
-    # 4. drop cuisine (last)
-    if not pool and ans.cuisine and ans.cuisine != "any" and course_type == "food":
-        relaxed = ans.model_copy(update={"place": None, "time": None, "cuisine": None})
+    if not pool and ans.region:
+        relaxed = ans.model_copy(update={"place": None, "time": None, "region": None})
+        pool = [c for c in courses if _matches_filters(c, relaxed, course_type)]
+
+    if not pool and ans.cuisine and course_type == "food":
+        relaxed = ans.model_copy(update={"place": None, "time": None, "region": None, "cuisine": None})
         pool = [c for c in courses if _matches_filters(c, relaxed, course_type)]
 
     # 5. last resort: type + budget

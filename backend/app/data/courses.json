@@ -16,6 +16,12 @@
       "moods": [
         "calm",
         "tired"
+      ],
+      "region": [
+        "gangnam",
+        "hongdae",
+        "seongsu",
+        "itaewon"
       ]
     },
     {
@@ -33,6 +39,12 @@
       "cuisine": null,
       "moods": [
         "calm"
+      ],
+      "region": [
+        "gangnam",
+        "hongdae",
+        "seongsu",
+        "itaewon"
       ]
     },
     {
@@ -52,6 +64,12 @@
       "moods": [
         "focused",
         "calm"
+      ],
+      "region": [
+        "gangnam",
+        "hongdae",
+        "seongsu",
+        "itaewon"
       ]
     },
     {
@@ -69,6 +87,9 @@
       "cuisine": null,
       "moods": [
         "calm"
+      ],
+      "region": [
+        "jongno"
       ]
     },
     {
@@ -88,6 +109,11 @@
       "moods": [
         "excited",
         "calm"
+      ],
+      "region": [
+        "gangnam",
+        "itaewon",
+        "hongdae"
       ]
     },
     {
@@ -104,6 +130,12 @@
       "cuisine": null,
       "moods": [
         "calm"
+      ],
+      "region": [
+        "gangnam",
+        "hongdae",
+        "seongsu",
+        "itaewon"
       ]
     },
     {
@@ -122,6 +154,12 @@
       "moods": [
         "calm",
         "focused"
+      ],
+      "region": [
+        "gangnam",
+        "hongdae",
+        "seongsu",
+        "itaewon"
       ]
     },
     {
@@ -139,6 +177,12 @@
       "cuisine": null,
       "moods": [
         "focused"
+      ],
+      "region": [
+        "gangnam",
+        "hongdae",
+        "seongsu",
+        "itaewon"
       ]
     },
     {
@@ -156,6 +200,12 @@
       "cuisine": null,
       "moods": [
         "calm"
+      ],
+      "region": [
+        "gangnam",
+        "hongdae",
+        "seongsu",
+        "itaewon"
       ]
     },
     {
@@ -174,6 +224,11 @@
       "cuisine": null,
       "moods": [
         "focused"
+      ],
+      "region": [
+        "hongdae",
+        "jongno",
+        "gangnam"
       ]
     },
     {
@@ -193,6 +248,9 @@
       "cuisine": null,
       "moods": [
         "calm"
+      ],
+      "region": [
+        "hangang"
       ]
     },
     {
@@ -211,6 +269,10 @@
       "cuisine": null,
       "moods": [
         "calm"
+      ],
+      "region": [
+        "hangang",
+        "jongno"
       ]
     },
     {
@@ -229,6 +291,10 @@
       "cuisine": null,
       "moods": [
         "calm"
+      ],
+      "region": [
+        "jongno",
+        "gangnam"
       ]
     },
     {
@@ -249,6 +315,11 @@
       "moods": [
         "calm",
         "excited"
+      ],
+      "region": [
+        "jongno",
+        "hongdae",
+        "seongsu"
       ]
     },
     {
@@ -268,6 +339,9 @@
       "cuisine": null,
       "moods": [
         "calm"
+      ],
+      "region": [
+        "jamsil"
       ]
     },
     {
@@ -287,6 +361,9 @@
       "cuisine": null,
       "moods": [
         "calm"
+      ],
+      "region": [
+        "hangang"
       ]
     },
     {
@@ -306,6 +383,10 @@
       "cuisine": null,
       "moods": [
         "focused"
+      ],
+      "region": [
+        "jongno",
+        "hangang"
       ]
     },
     {
@@ -325,6 +406,9 @@
       "cuisine": null,
       "moods": [
         "calm"
+      ],
+      "region": [
+        "hangang"
       ]
     },
     {
@@ -343,6 +427,10 @@
       "cuisine": null,
       "moods": [
         "focused"
+      ],
+      "region": [
+        "jongno",
+        "itaewon"
       ]
     },
     {
@@ -362,6 +450,10 @@
       "cuisine": null,
       "moods": [
         "excited"
+      ],
+      "region": [
+        "hongdae",
+        "jongno"
       ]
     },
     {
@@ -380,6 +472,12 @@
       "cuisine": "western",
       "moods": [
         "excited"
+      ],
+      "region": [
+        "hongdae",
+        "itaewon",
+        "gangnam",
+        "seongsu"
       ]
     },
     {
@@ -398,6 +496,11 @@
       "moods": [
         "calm",
         "excited"
+      ],
+      "region": [
+        "jongno",
+        "gangnam",
+        "hongdae"
       ]
     },
     {
@@ -415,6 +518,11 @@
       "cuisine": "korean",
       "moods": [
         "calm"
+      ],
+      "region": [
+        "jongno",
+        "gangnam",
+        "hongdae"
       ]
     },
     {
@@ -431,6 +539,10 @@
       "cuisine": "japanese",
       "moods": [
         "focused"
+      ],
+      "region": [
+        "gangnam",
+        "itaewon"
       ]
     },
     {
@@ -448,6 +560,11 @@
       "cuisine": "western",
       "moods": [
         "excited"
+      ],
+      "region": [
+        "hongdae",
+        "itaewon",
+        "gangnam"
       ]
     },
     {
@@ -465,6 +582,11 @@
       "cuisine": "korean",
       "moods": [
         "calm"
+      ],
+      "region": [
+        "jongno",
+        "gangnam",
+        "hongdae"
       ]
     },
     {
@@ -482,6 +604,11 @@
       "cuisine": "japanese",
       "moods": [
         "excited"
+      ],
+      "region": [
+        "hongdae",
+        "gangnam",
+        "jongno"
       ]
     },
     {
@@ -499,6 +626,11 @@
       "cuisine": "asian",
       "moods": [
         "calm"
+      ],
+      "region": [
+        "hongdae",
+        "gangnam",
+        "jongno"
       ]
     },
     {
@@ -515,6 +647,11 @@
       "cuisine": "korean",
       "moods": [
         "excited"
+      ],
+      "region": [
+        "gangnam",
+        "jongno",
+        "jamsil"
       ]
     },
     {
@@ -532,6 +669,12 @@
       "cuisine": "western",
       "moods": [
         "focused"
+      ],
+      "region": [
+        "hongdae",
+        "itaewon",
+        "gangnam",
+        "seongsu"
       ]
     },
     {
@@ -549,6 +692,11 @@
       "cuisine": "western",
       "moods": [
         "excited"
+      ],
+      "region": [
+        "hongdae",
+        "itaewon",
+        "gangnam"
       ]
     },
     {
@@ -566,6 +714,11 @@
       "cuisine": "asian",
       "moods": [
         "calm"
+      ],
+      "region": [
+        "hongdae",
+        "gangnam",
+        "jongno"
       ]
     },
     {
@@ -584,6 +737,11 @@
       "moods": [
         "focused",
         "excited"
+      ],
+      "region": [
+        "gangnam",
+        "hongdae",
+        "jamsil"
       ]
     },
     {
@@ -602,6 +760,11 @@
       "cuisine": null,
       "moods": [
         "excited"
+      ],
+      "region": [
+        "gangnam",
+        "hongdae",
+        "jamsil"
       ]
     },
     {
@@ -619,6 +782,11 @@
       "cuisine": null,
       "moods": [
         "focused"
+      ],
+      "region": [
+        "jongno",
+        "hongdae",
+        "seongsu"
       ]
     },
     {
@@ -636,6 +804,9 @@
       "cuisine": null,
       "moods": [
         "excited"
+      ],
+      "region": [
+        "hangang"
       ]
     },
     {
@@ -652,6 +823,11 @@
       "cuisine": null,
       "moods": [
         "focused"
+      ],
+      "region": [
+        "seongsu",
+        "hongdae",
+        "jongno"
       ]
     },
     {
@@ -669,6 +845,11 @@
       "cuisine": null,
       "moods": [
         "excited"
+      ],
+      "region": [
+        "gangnam",
+        "seongsu",
+        "hongdae"
       ]
     },
     {
@@ -686,6 +867,11 @@
       "cuisine": null,
       "moods": [
         "excited"
+      ],
+      "region": [
+        "gangnam",
+        "hongdae",
+        "jamsil"
       ]
     },
     {
@@ -705,6 +891,10 @@
       "moods": [
         "focused",
         "calm"
+      ],
+      "region": [
+        "hongdae",
+        "gangnam"
       ]
     },
     {
@@ -723,6 +913,11 @@
       "moods": [
         "calm",
         "focused"
+      ],
+      "region": [
+        "jongno",
+        "hongdae",
+        "seongsu"
       ]
     },
     {
@@ -742,6 +937,11 @@
       "moods": [
         "focused",
         "calm"
+      ],
+      "region": [
+        "hongdae",
+        "gangnam",
+        "seongsu"
       ]
     },
     {
@@ -759,6 +959,12 @@
       "moods": [
         "calm",
         "excited"
+      ],
+      "region": [
+        "gangnam",
+        "hongdae",
+        "seongsu",
+        "itaewon"
       ]
     },
     {
@@ -776,6 +982,12 @@
       "cuisine": null,
       "moods": [
         "excited"
+      ],
+      "region": [
+        "gangnam",
+        "hongdae",
+        "seongsu",
+        "itaewon"
       ]
     },
     {
@@ -792,6 +1004,12 @@
       "cuisine": null,
       "moods": [
         "calm"
+      ],
+      "region": [
+        "gangnam",
+        "hongdae",
+        "seongsu",
+        "itaewon"
       ]
     },
     {
@@ -808,6 +1026,12 @@
       "cuisine": null,
       "moods": [
         "calm"
+      ],
+      "region": [
+        "gangnam",
+        "hongdae",
+        "seongsu",
+        "itaewon"
       ]
     },
     {
@@ -826,6 +1050,12 @@
       "cuisine": null,
       "moods": [
         "excited"
+      ],
+      "region": [
+        "gangnam",
+        "hongdae",
+        "seongsu",
+        "itaewon"
       ]
     },
     {
@@ -844,6 +1074,11 @@
       "moods": [
         "calm",
         "excited"
+      ],
+      "region": [
+        "itaewon",
+        "gangnam",
+        "hongdae"
       ]
     },
     {
@@ -862,6 +1097,10 @@
       "cuisine": null,
       "moods": [
         "excited"
+      ],
+      "region": [
+        "itaewon",
+        "jongno"
       ]
     },
     {
@@ -879,6 +1118,9 @@
       "cuisine": null,
       "moods": [
         "excited"
+      ],
+      "region": [
+        "hangang"
       ]
     }
   ],

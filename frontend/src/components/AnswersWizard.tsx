@@ -1,72 +1,94 @@
 import { useReducer } from 'react';
 import type {
-  Activity, Answers, Budget, Cuisine, Mood, PlacePref, State, TimeOfDay,
+  Activity, Answers, Budget, Cuisine, Mood, PlacePref, Region, State, TimeOfDay,
 } from '../api';
 import { EmojiButton } from './EmojiButton';
 
-type Key = 'state' | 'mood' | 'activity' | 'budget' | 'time' | 'place' | 'cuisine';
+type Key = 'state' | 'mood' | 'activity' | 'budget' | 'time' | 'place' | 'cuisine' | 'region';
 
-const REQUIRED: Array<{
+interface StepDef {
   key: Key;
   question: string;
+  multi: boolean;
   options: Array<{ value: string; emoji: string; label: string }>;
-}> = [
-  { key: 'state', question: '오늘 컨디션은?', options: [
+}
+
+const REQUIRED: StepDef[] = [
+  { key: 'state', multi: false, question: '오늘 컨디션은?', options: [
     { value: 'good',   emoji: '😊', label: '좋아요' },
     { value: 'normal', emoji: '😐', label: '보통' },
     { value: 'tired',  emoji: '😵', label: '피곤' },
   ]},
-  { key: 'mood', question: '어떤 분위기?', options: [
+  { key: 'mood', multi: false, question: '어떤 분위기?', options: [
     { value: 'calm',    emoji: '🧘', label: '차분' },
     { value: 'excited', emoji: '🎉', label: '신나게' },
     { value: 'focused', emoji: '🎯', label: '몰입' },
   ]},
-  { key: 'activity', question: '활동성은?', options: [
+  { key: 'activity', multi: false, question: '활동성은?', options: [
     { value: 'low',  emoji: '🚶', label: '여유' },
     { value: 'high', emoji: '🎡', label: '활발' },
   ]},
-  { key: 'budget', question: '예산은?', options: [
+  { key: 'budget', multi: false, question: '예산은?', options: [
     { value: 'low',  emoji: '💸', label: '아끼게' },
     { value: 'mid',  emoji: '💳', label: '적당히' },
     { value: 'high', emoji: '💰', label: '크게' },
   ]},
 ];
 
-const OPTIONAL: typeof REQUIRED = [
-  { key: 'time', question: '시간대는?', options: [
+const OPTIONAL: StepDef[] = [
+  { key: 'time', multi: true, question: '시간대는? (여러 개 선택 가능)', options: [
     { value: 'brunch',    emoji: '🌅', label: '점심' },
     { value: 'afternoon', emoji: '☀️', label: '오후' },
     { value: 'evening',   emoji: '🌆', label: '저녁' },
     { value: 'night',     emoji: '🌙', label: '밤' },
   ]},
-  { key: 'place', question: '장소는?', options: [
+  { key: 'place', multi: false, question: '장소는?', options: [
     { value: 'indoor',  emoji: '🏠', label: '실내' },
     { value: 'outdoor', emoji: '🌳', label: '야외' },
     { value: 'any',     emoji: '🤷', label: '무관' },
   ]},
-  { key: 'cuisine', question: '음식 선호는?', options: [
+  { key: 'cuisine', multi: true, question: '음식 선호는? (여러 개 선택 가능)', options: [
     { value: 'korean',   emoji: '🍚', label: '한식' },
     { value: 'western',  emoji: '🍝', label: '양식' },
     { value: 'japanese', emoji: '🍣', label: '일식' },
     { value: 'asian',    emoji: '🍜', label: '아시안' },
-    { value: 'any',      emoji: '🤷', label: '무관' },
+  ]},
+  { key: 'region', multi: true, question: '지역은? (여러 개 선택 가능)', options: [
+    { value: 'gangnam',  emoji: '🏙', label: '강남' },
+    { value: 'hongdae',  emoji: '🎨', label: '홍대' },
+    { value: 'seongsu',  emoji: '🏭', label: '성수' },
+    { value: 'itaewon',  emoji: '🌆', label: '이태원' },
+    { value: 'jamsil',   emoji: '🎢', label: '잠실' },
+    { value: 'jongno',   emoji: '🏯', label: '종로' },
+    { value: 'hangang',  emoji: '🌊', label: '한강' },
   ]},
 ];
 
 type Vals = {
   state?: State; mood?: Mood; activity?: Activity; budget?: Budget;
-  time?: TimeOfDay; place?: PlacePref; cuisine?: Cuisine;
+  time?: TimeOfDay[]; place?: PlacePref; cuisine?: Cuisine[]; region?: Region[];
 };
 
 type W = { step: number; ans: Vals };
 type A =
-  | { type: 'SET'; key: Key; value: string }
+  | { type: 'SET_SINGLE'; key: Key; value: string }
+  | { type: 'TOGGLE_MULTI'; key: Key; value: string }
+  | { type: 'NEXT' }
   | { type: 'PREV' };
 
 function reducer(s: W, a: A): W {
   switch (a.type) {
-    case 'SET': return { step: s.step + 1, ans: { ...s.ans, [a.key]: a.value } };
-    case 'PREV': return { step: Math.max(1, s.step - 1), ans: s.ans };
+    case 'SET_SINGLE':
+      return { step: s.step + 1, ans: { ...s.ans, [a.key]: a.value } };
+    case 'TOGGLE_MULTI': {
+      const cur = ((s.ans as Record<string, string[] | undefined>)[a.key]) ?? [];
+      const next = cur.includes(a.value)
+        ? cur.filter(v => v !== a.value)
+        : [...cur, a.value];
+      return { ...s, ans: { ...s.ans, [a.key]: next } as Vals };
+    }
+    case 'NEXT': return { ...s, step: s.step + 1 };
+    case 'PREV': return { ...s, step: Math.max(1, s.step - 1) };
   }
 }
 
@@ -78,9 +100,9 @@ interface PartnerStatus {
 interface Props {
   mode: 'quick' | 'detailed';
   onComplete: (answers: Answers) => void;
-  onBack?: () => void;       // 모드 선택으로 되돌아가기
+  onBack?: () => void;
   title?: string;
-  partner?: PartnerStatus;   // 커플 모드일 때 파트너 진행 상태
+  partner?: PartnerStatus;
 }
 
 export function AnswersWizard({ mode, onComplete, onBack, title, partner }: Props) {
@@ -97,6 +119,10 @@ export function AnswersWizard({ mode, onComplete, onBack, title, partner }: Prop
   const cur = all[state.step - 1];
   const progress = ((state.step - 1) / total) * 100;
   const handlePrev = state.step === 1 ? onBack : () => dispatch({ type: 'PREV' });
+
+  const multiValues = cur.multi
+    ? ((state.ans as Record<string, string[] | undefined>)[cur.key] ?? [])
+    : [];
 
   return (
     <div>
@@ -136,18 +162,48 @@ export function AnswersWizard({ mode, onComplete, onBack, title, partner }: Prop
 
       <div className={`grid gap-3 ${
         cur.options.length === 2 ? 'grid-cols-2' :
+        cur.options.length >= 7 ? 'grid-cols-3' :
         cur.options.length >= 5 ? 'grid-cols-3' : 'grid-cols-3'
       }`}>
-        {cur.options.map((opt) => (
-          <EmojiButton
-            key={opt.value}
-            emoji={opt.emoji}
-            label={opt.label}
-            selected={(state.ans as Record<string, string>)[cur.key] === opt.value}
-            onClick={() => dispatch({ type: 'SET', key: cur.key, value: opt.value })}
-          />
-        ))}
+        {cur.options.map((opt) => {
+          const selected = cur.multi
+            ? multiValues.includes(opt.value)
+            : (state.ans as Record<string, string>)[cur.key] === opt.value;
+          return (
+            <EmojiButton
+              key={opt.value}
+              emoji={opt.emoji}
+              label={opt.label}
+              selected={selected}
+              onClick={() => {
+                if (cur.multi) {
+                  dispatch({ type: 'TOGGLE_MULTI', key: cur.key, value: opt.value });
+                } else {
+                  dispatch({ type: 'SET_SINGLE', key: cur.key, value: opt.value });
+                }
+              }}
+            />
+          );
+        })}
       </div>
+
+      {cur.multi && (
+        <div className="mt-6 flex gap-2">
+          <button
+            onClick={() => dispatch({ type: 'NEXT' })}
+            className="rounded-2xl border border-line bg-paper px-5 py-3 text-sm font-medium text-ink-3"
+          >
+            건너뛰기
+          </button>
+          <button
+            onClick={() => dispatch({ type: 'NEXT' })}
+            disabled={multiValues.length === 0}
+            className="flex-1 rounded-2xl bg-ink py-3 font-bold text-paper disabled:opacity-30"
+          >
+            {multiValues.length > 0 ? `다음 (${multiValues.length}개 선택)` : '하나 이상 선택'}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

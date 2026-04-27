@@ -9,7 +9,8 @@ Activity = Literal["low", "high"]
 Budget = Literal["low", "mid", "high"]
 TimeOfDay = Literal["brunch", "afternoon", "evening", "night"]
 PlacePref = Literal["indoor", "outdoor", "any"]
-Cuisine = Literal["korean", "western", "japanese", "asian", "any"]
+Cuisine = Literal["korean", "western", "japanese", "asian"]
+Region = Literal["gangnam", "hongdae", "seongsu", "itaewon", "jamsil", "jongno", "hangang"]
 
 
 class Answers(BaseModel):
@@ -17,10 +18,11 @@ class Answers(BaseModel):
     mood: Mood
     activity: Activity
     budget: Budget
-    # Optional refinements
-    time: Optional[TimeOfDay] = None
+    # Optional refinements (multi-select 가능: 빈 배열 또는 None = 무관)
+    time: Optional[list[TimeOfDay]] = None
     place: Optional[PlacePref] = None
-    cuisine: Optional[Cuisine] = None
+    cuisine: Optional[list[Cuisine]] = None
+    region: Optional[list[Region]] = None
 
 
 class CourseStep(BaseModel):

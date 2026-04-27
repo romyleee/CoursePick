@@ -5,16 +5,20 @@ export type Activity = 'low' | 'high';
 export type Budget = 'low' | 'mid' | 'high';
 export type TimeOfDay = 'brunch' | 'afternoon' | 'evening' | 'night';
 export type PlacePref = 'indoor' | 'outdoor' | 'any';
-export type Cuisine = 'korean' | 'western' | 'japanese' | 'asian' | 'any';
+export type Cuisine = 'korean' | 'western' | 'japanese' | 'asian';
+export type Region = 'gangnam' | 'hongdae' | 'seongsu' | 'itaewon' | 'jamsil' | 'jongno' | 'hangang';
 
 export interface Answers {
   state: State;
   mood: Mood;
   activity: Activity;
   budget: Budget;
-  time?: TimeOfDay | null;
+  // 다중 선택
+  time?: TimeOfDay[] | null;
+  cuisine?: Cuisine[] | null;
+  region?: Region[] | null;
+  // 단일 선택
   place?: PlacePref | null;
-  cuisine?: Cuisine | null;
 }
 
 export interface CourseStep { step: number; type: string; name: string; }

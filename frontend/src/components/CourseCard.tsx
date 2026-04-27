@@ -107,11 +107,9 @@ export function CourseCard({ data, onAccept, onRetry }: Props) {
         <button
           onClick={onShare}
           disabled={sharing}
-          aria-label="이미지로 공유"
-          title="이미지로 공유"
-          className="flex h-[56px] w-[56px] items-center justify-center rounded-2xl border border-line bg-paper text-xl transition active:scale-[.98] disabled:opacity-50"
+          className="rounded-2xl border border-line bg-paper px-5 py-4 font-medium text-ink-2 transition active:scale-[.98] disabled:opacity-50"
         >
-          {sharing ? '⏳' : '📸'}
+          {sharing ? '...' : '공유'}
         </button>
         {onRetry && (
           <button
