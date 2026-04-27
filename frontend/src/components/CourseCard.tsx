@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import type { CourseOption } from '../api';
 
 const TYPE_EMOJI: Record<string, string> = {
@@ -11,69 +11,49 @@ const TYPE_LABEL: Record<string, string> = {
 
 interface Props {
   data: CourseOption;
-  label?: string;       // "코스 1" 같은 헤딩
+  label?: string;
   onAccept?: () => void;
   onRetry?: () => void;
 }
 
+function buildShareText(data: CourseOption): string {
+  const lines = ['오늘의 코스 — 갈래말래'];
+  if (data.region) lines.push(`📍 ${data.region}`);
+  lines.push('');
+  data.course.forEach((c, i) => lines.push(`${i + 1}. ${c.name}`));
+  return lines.join('\n');
+}
+
 export function CourseCard({ data, label, onAccept, onRetry }: Props) {
-  const captureRef = useRef<HTMLDivElement>(null);
-  const [sharing, setSharing] = useState(false);
-  const [shareMsg, setShareMsg] = useState<string | null>(null);
+  const [copyMsg, setCopyMsg] = useState<string | null>(null);
 
-  const onShare = async () => {
-    if (!captureRef.current || sharing) return;
-    setSharing(true);
-    setShareMsg(null);
+  const onCopy = async () => {
+    const text = buildShareText(data);
     try {
-      // html-to-image 는 무거우니 사용 시점에만 동적 로드
-      const { toBlob } = await import('html-to-image');
-      const blob = await toBlob(captureRef.current, {
-        pixelRatio: 2,
-        backgroundColor: '#FFFFFF',
-        cacheBust: true,
-      });
-      if (!blob) throw new Error('이미지 생성 실패');
-
-      const file = new File([blob], 'course.png', { type: 'image/png' });
-
-      // Mobile: Web Share API (카톡 / 인스타 등 네이티브 공유 시트)
-      if (typeof navigator !== 'undefined' && navigator.canShare?.({ files: [file] })) {
-        try {
-          await navigator.share({
-            files: [file],
-            title: '갈래말래 추천 코스',
-            text: data.course.map(s => `${s.step}. ${s.name}`).join('\n'),
-          });
-          return;
-        } catch (e) {
-          // 사용자 취소는 조용히 무시
-          if ((e as Error).name === 'AbortError') return;
-          // 그 외엔 다운로드 폴백
-        }
+      await navigator.clipboard.writeText(text);
+      setCopyMsg('복사됨 ✓');
+    } catch {
+      // fallback for non-secure contexts (drag selection)
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        setCopyMsg('복사됨 ✓');
+      } catch {
+        setCopyMsg('복사 실패');
       }
-
-      // Desktop / fallback: 다운로드
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      const today = new Date().toISOString().slice(0, 10);
-      a.download = `갈래말래_${today}.png`;
-      a.click();
-      URL.revokeObjectURL(url);
-      setShareMsg('이미지 저장됨');
-      setTimeout(() => setShareMsg(null), 2000);
-    } catch (e) {
-      setShareMsg((e as Error).message);
-      setTimeout(() => setShareMsg(null), 3000);
-    } finally {
-      setSharing(false);
     }
+    setTimeout(() => setCopyMsg(null), 1500);
   };
 
   return (
     <div>
-      <div ref={captureRef} className="rounded-3xl border border-line bg-paper p-6">
+      <div className="rounded-3xl border border-line bg-paper p-6">
         <div className="mb-1 flex items-center justify-between">
           <h3 className="text-2xl font-bold tracking-tight text-ink">{label ?? '오늘의 코스'}</h3>
           <span className="text-[11px] font-bold tracking-tight">
@@ -112,11 +92,10 @@ export function CourseCard({ data, label, onAccept, onRetry }: Props) {
           </button>
         )}
         <button
-          onClick={onShare}
-          disabled={sharing}
-          className="rounded-2xl border border-line bg-paper px-5 py-4 font-medium text-ink-2 transition active:scale-[.98] disabled:opacity-50"
+          onClick={onCopy}
+          className="rounded-2xl border border-line bg-paper px-5 py-4 font-medium text-ink-2 transition active:scale-[.98]"
         >
-          {sharing ? '...' : '공유'}
+          {copyMsg ?? '복사'}
         </button>
         {onRetry && (
           <button
@@ -127,9 +106,6 @@ export function CourseCard({ data, label, onAccept, onRetry }: Props) {
           </button>
         )}
       </div>
-      {shareMsg && (
-        <p className="mt-2 text-center text-xs text-ink-3">{shareMsg}</p>
-      )}
     </div>
   );
 }
