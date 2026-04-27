@@ -54,20 +54,26 @@ export function CourseCard({ data, label, onAccept, onRetry }: Props) {
   return (
     <div>
       <div className="rounded-3xl border border-line bg-paper p-6">
-        <div className="mb-1 flex items-center justify-between">
+        <div className="mb-3 flex items-center justify-between">
           <h3 className="text-2xl font-bold tracking-tight text-ink">{label ?? '오늘의 코스'}</h3>
           <span className="text-[11px] font-bold tracking-tight">
             <span className="text-terracotta">갈래</span><span className="text-ink">말래</span>
           </span>
         </div>
-        {data.region && (
-          <p className="mb-3 text-base font-bold text-terracotta">
-            📍 오늘은 {data.region} 어때요?
-          </p>
-        )}
-        <p className="mb-6 whitespace-pre-line text-sm leading-relaxed text-ink-3">{data.reason}</p>
+        <p className="mb-5 whitespace-pre-line text-sm leading-relaxed text-ink-3">{data.reason}</p>
 
         <ol className="space-y-3">
+          {data.region && (
+            <li className="flex items-center gap-4 rounded-2xl border border-terracotta bg-terracotta-soft p-4">
+              <span className="text-2xl">📍</span>
+              <div className="min-w-0">
+                <div className="text-[11px] font-semibold uppercase tracking-widest text-terracotta-2">
+                  Region · Today
+                </div>
+                <div className="truncate font-bold text-ink">오늘은 {data.region} 어때요?</div>
+              </div>
+            </li>
+          )}
           {data.course.map((c) => (
             <li key={c.step} className="flex items-center gap-4 rounded-2xl border border-line bg-cream/50 p-4">
               <span className="text-2xl">{TYPE_EMOJI[c.type] ?? '📍'}</span>

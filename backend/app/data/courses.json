@@ -1268,8 +1268,8 @@
       },
       "course_types": [
         "cafe",
-        "walk",
-        "dessert"
+        "food",
+        "walk"
       ],
       "reason": "피곤+조용 → 카페 중심 코스"
     },
@@ -1281,7 +1281,7 @@
       },
       "course_types": [
         "cafe",
-        "walk",
+        "food",
         "view"
       ],
       "reason": "피곤한데 가볍게 움직이고 싶을 때"
@@ -1345,9 +1345,9 @@
         "activity": "low"
       },
       "course_types": [
-        "cafe",
         "walk",
-        "dessert"
+        "food",
+        "cafe"
       ],
       "reason": "여유로운 산책 코스"
     },
@@ -1359,7 +1359,7 @@
       },
       "course_types": [
         "walk",
-        "cafe",
+        "food",
         "dessert"
       ],
       "reason": "기분 좋은 여유 코스"
@@ -1489,8 +1489,8 @@
       },
       "course_types": [
         "walk",
-        "activity",
-        "cafe"
+        "food",
+        "activity"
       ],
       "reason": "여유 있게 움직이는 코스"
     }
