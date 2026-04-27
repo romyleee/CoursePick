@@ -37,7 +37,8 @@ const REQUIRED: StepDef[] = [
 
 const OPTIONAL: StepDef[] = [
   { key: 'time', multi: true, question: '시간대는? (여러 개 선택 가능)', options: [
-    { value: 'brunch',    emoji: '🌅', label: '점심' },
+    { value: 'morning',   emoji: '🌅', label: '오전' },
+    { value: 'brunch',    emoji: '🥐', label: '점심' },
     { value: 'afternoon', emoji: '☀️', label: '오후' },
     { value: 'evening',   emoji: '🌆', label: '저녁' },
     { value: 'night',     emoji: '🌙', label: '밤' },
