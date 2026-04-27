@@ -1,4 +1,4 @@
-import { api } from './api';
+import { api, NetworkError } from './api';
 
 const KEY = 'coursepick.session';
 
@@ -41,13 +41,14 @@ async function createFreshSession(nickname: string): Promise<LocalSession> {
 export async function ensureUser(defaultNickname?: string): Promise<LocalSession> {
   const existing = load();
   if (existing) {
-    // localStorage의 user_id가 서버에 실제 존재하는지 검증 (DB 리셋 대응)
     try {
       await api.getUser(existing.userId);
       return existing;
-    } catch {
+    } catch (e) {
+      // 네트워크 오류면 기존 세션 유지 (백엔드가 잠깐 죽었을 때 앱이 안 죽게)
+      if (e instanceof NetworkError) return existing;
+      // 404 등 서버가 응답한 오류 → 사용자 사라짐 → 새로 만듦
       localStorage.removeItem('coursepick.session');
-      // fall through → 새로 생성
     }
   }
   return createFreshSession(defaultNickname ?? randomNickname());

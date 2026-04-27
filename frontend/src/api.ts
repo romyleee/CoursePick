@@ -67,12 +67,21 @@ export interface TimelineGroup { year: number; month: number; logs: DateLog[]; }
 // client
 const BASE = (import.meta.env.VITE_API_BASE as string) ?? 'http://localhost:8000';
 
+export class NetworkError extends Error {
+  constructor() { super('서버에 연결할 수 없어요. 백엔드가 켜져 있는지 확인해주세요.'); }
+}
+
 async function req<T>(path: string, init?: RequestInit): Promise<T> {
   const isForm = init?.body instanceof FormData;
-  const res = await fetch(`${BASE}${path}`, {
-    ...init,
-    headers: isForm ? init?.headers : { 'Content-Type': 'application/json', ...(init?.headers ?? {}) },
-  });
+  let res: Response;
+  try {
+    res = await fetch(`${BASE}${path}`, {
+      ...init,
+      headers: isForm ? init?.headers : { 'Content-Type': 'application/json', ...(init?.headers ?? {}) },
+    });
+  } catch {
+    throw new NetworkError();
+  }
   if (!res.ok) throw new Error(`${res.status} ${await res.text().catch(() => '')}`);
   return res.json() as Promise<T>;
 }
