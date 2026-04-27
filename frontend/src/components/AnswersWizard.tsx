@@ -58,59 +58,52 @@ type Vals = {
   time?: TimeOfDay; place?: PlacePref; cuisine?: Cuisine;
 };
 
-type W = { step: number; ans: Vals; detailed: boolean };
+type W = { step: number; ans: Vals };
 type A =
   | { type: 'SET'; key: Key; value: string }
-  | { type: 'PREV' }
-  | { type: 'GO_DETAILED' };
+  | { type: 'PREV' };
 
 function reducer(s: W, a: A): W {
   switch (a.type) {
-    case 'SET': return { ...s, step: s.step + 1, ans: { ...s.ans, [a.key]: a.value } };
-    case 'PREV': return { ...s, step: Math.max(1, s.step - 1) };
-    case 'GO_DETAILED': return { ...s, detailed: true, step: REQUIRED.length + 1 };
+    case 'SET': return { step: s.step + 1, ans: { ...s.ans, [a.key]: a.value } };
+    case 'PREV': return { step: Math.max(1, s.step - 1), ans: s.ans };
   }
+}
+
+interface PartnerStatus {
+  done: boolean;
+  myDone: boolean;
 }
 
 interface Props {
+  mode: 'quick' | 'detailed';
   onComplete: (answers: Answers) => void;
+  onBack?: () => void;       // 모드 선택으로 되돌아가기
   title?: string;
+  partner?: PartnerStatus;   // 커플 모드일 때 파트너 진행 상태
 }
 
-export function AnswersWizard({ onComplete, title }: Props) {
-  const [state, dispatch] = useReducer(reducer, { step: 1, ans: {}, detailed: false });
+export function AnswersWizard({ mode, onComplete, onBack, title, partner }: Props) {
+  const [state, dispatch] = useReducer(reducer, { step: 1, ans: {} });
 
-  const required = REQUIRED.length;
-  const totalIfDetailed = REQUIRED.length + OPTIONAL.length;
-  const total = state.detailed ? totalIfDetailed : required;
-
-  // After required, show transition gate (unless user already chose detailed)
-  if (state.step === required + 1 && !state.detailed) {
-    return (
-      <Gate
-        onSimple={() => onComplete(state.ans as Answers)}
-        onDetail={() => dispatch({ type: 'GO_DETAILED' })}
-        onPrev={() => dispatch({ type: 'PREV' })}
-      />
-    );
-  }
+  const all = mode === 'detailed' ? [...REQUIRED, ...OPTIONAL] : REQUIRED;
+  const total = all.length;
 
   if (state.step > total) {
     onComplete(state.ans as Answers);
     return null;
   }
 
-  const all = [...REQUIRED, ...OPTIONAL];
   const cur = all[state.step - 1];
   const progress = ((state.step - 1) / total) * 100;
-  const isOptional = state.step > required;
+  const handlePrev = state.step === 1 ? onBack : () => dispatch({ type: 'PREV' });
 
   return (
     <div>
       <header className="mb-2 flex items-center justify-between">
         <button
-          onClick={() => dispatch({ type: 'PREV' })}
-          disabled={state.step === 1}
+          onClick={handlePrev}
+          disabled={!handlePrev}
           aria-label="이전"
           className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-paper text-lg text-ink-2 disabled:opacity-30"
         >
@@ -122,17 +115,24 @@ export function AnswersWizard({ onComplete, title }: Props) {
         <span className="w-10" />
       </header>
 
-      <div className="mb-10 h-1 w-full overflow-hidden rounded-full bg-line">
+      <div className="mb-6 h-1 w-full overflow-hidden rounded-full bg-line">
         <div className="h-full bg-terracotta transition-all" style={{ width: `${progress}%` }} />
       </div>
 
-      <h1 className="mb-2 text-3xl font-bold leading-tight tracking-tight text-ink">
+      {partner && (
+        <div className="mb-6 flex items-center justify-between rounded-2xl border border-line bg-paper px-4 py-3 text-xs">
+          <span className="text-ink-3">함께 답변 중</span>
+          <span className="flex items-center gap-2 font-medium">
+            <Indicator label="나" done={partner.myDone} active />
+            <span className="text-ink-3">·</span>
+            <Indicator label="파트너" done={partner.done} active={false} />
+          </span>
+        </div>
+      )}
+
+      <h1 className="mb-8 text-3xl font-bold leading-tight tracking-tight text-ink">
         {cur.question}
       </h1>
-      {isOptional && (
-        <p className="mb-8 text-sm text-ink-3">선택 사항 — 무관/건너뛰어도 OK</p>
-      )}
-      {!isOptional && <div className="mb-8" />}
 
       <div className={`grid gap-3 ${
         cur.options.length === 2 ? 'grid-cols-2' :
@@ -152,50 +152,11 @@ export function AnswersWizard({ onComplete, title }: Props) {
   );
 }
 
-function Gate({
-  onSimple, onDetail, onPrev,
-}: { onSimple: () => void; onDetail: () => void; onPrev: () => void }) {
+function Indicator({ label, done, active }: { label: string; done: boolean; active: boolean }) {
   return (
-    <div>
-      <header className="mb-2 flex items-center justify-between">
-        <button onClick={onPrev} aria-label="이전"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-paper text-lg text-ink-2">
-          ←
-        </button>
-        <span className="text-[11px] uppercase tracking-widest text-ink-3">기본 정보 완료</span>
-        <span className="w-10" />
-      </header>
-
-      <div className="mb-10 h-1 w-full overflow-hidden rounded-full bg-line">
-        <div className="h-full bg-terracotta" style={{ width: '57%' }} />
-      </div>
-
-      <h1 className="mb-3 text-3xl font-bold leading-tight tracking-tight text-ink">
-        더 자세히 추천받을까요?
-      </h1>
-      <p className="mb-10 text-sm leading-relaxed text-ink-3">
-        시간대·장소·음식 선호를 알려주시면 더 정확하게 추천해드려요.<br/>
-        (3단계, 모두 무관/건너뛰기 가능)
-      </p>
-
-      <div className="space-y-3">
-        <button
-          onClick={onDetail}
-          className="block w-full rounded-3xl border border-line bg-paper p-6 text-left transition active:scale-[.99]"
-        >
-          <p className="text-[11px] uppercase tracking-widest text-ink-3">Detailed</p>
-          <p className="mt-1 text-lg font-bold tracking-tight text-ink">3개 더 답하기</p>
-          <p className="mt-1 text-sm text-ink-3">시간대 · 장소 · 음식 선호</p>
-        </button>
-        <button
-          onClick={onSimple}
-          className="block w-full rounded-3xl bg-ink p-6 text-left transition active:scale-[.99]"
-        >
-          <p className="text-[11px] uppercase tracking-widest text-cream/70">Quick</p>
-          <p className="mt-1 text-lg font-bold tracking-tight text-paper">바로 추천받기</p>
-          <p className="mt-1 text-sm text-cream/70">현재 답변으로 즉시 결과</p>
-        </button>
-      </div>
-    </div>
+    <span className={`inline-flex items-center gap-1 ${done ? 'text-terracotta' : active ? 'text-ink' : 'text-ink-3'}`}>
+      <span className={`h-1.5 w-1.5 rounded-full ${done ? 'bg-terracotta' : 'bg-ink-3 animate-pulse'}`} />
+      {label} {done ? '✓' : ''}
+    </span>
   );
 }

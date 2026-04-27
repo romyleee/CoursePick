@@ -3,10 +3,11 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { api, type Answers, type SessionData } from '../api';
 import { AnswersWizard } from '../components/AnswersWizard';
 import { CourseCard } from '../components/CourseCard';
+import { ModeChoice } from '../components/ModeChoice';
 import { useSession } from '../hooks/useSession';
 import { joinCoupleRoom } from '../session';
 
-type Stage = 'enter' | 'wizard' | 'waiting' | 'done';
+type Stage = 'enter' | 'choice' | 'wizard' | 'waiting' | 'done';
 
 export function JoinPage() {
   const { session, setSession } = useSession();
@@ -14,6 +15,7 @@ export function JoinPage() {
   const [params] = useSearchParams();
   const [code, setCode] = useState(params.get('code') ?? '');
   const [stage, setStage] = useState<Stage>('enter');
+  const [mode, setMode] = useState<'quick' | 'detailed'>('quick');
   const [data, setData] = useState<SessionData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -22,20 +24,17 @@ export function JoinPage() {
     if (params.get('code')) setCode(params.get('code')!.toUpperCase());
   }, [params]);
 
-  // Polling while waiting for partner
+  // wizard / waiting 동안 파트너 상태 폴링
   useEffect(() => {
-    if (stage !== 'waiting' || !data) return;
+    if (!data || (stage !== 'wizard' && stage !== 'waiting')) return;
+    const interval = stage === 'waiting' ? 2000 : 4000;
     const t = setInterval(async () => {
       try {
         const fresh = await api.getSession(data.code);
-        if (fresh.ready) {
-          setData(fresh);
-          setStage('done');
-        } else {
-          setData(fresh);
-        }
+        setData(fresh);
+        if (fresh.ready && stage === 'waiting') setStage('done');
       } catch { /* ignore */ }
-    }, 2000);
+    }, interval);
     return () => clearInterval(t);
   }, [stage, data]);
 
@@ -44,13 +43,9 @@ export function JoinPage() {
     setBusy(true); setError(null);
     try {
       const s = await api.getSession(code.trim().toUpperCase());
-      if (s.mode !== 'couple') {
-        setError('커플 세션이 아닙니다');
-        return;
-      }
+      if (s.mode !== 'couple') { setError('커플 세션이 아닙니다'); return; }
       setData(s);
 
-      // Sync couple membership locally so saved logs go to the right couple
       if (s.couple_id && session.coupleId !== s.couple_id) {
         try {
           const c = await api.getCouple(s.couple_id);
@@ -59,13 +54,12 @@ export function JoinPage() {
         } catch { /* ignore */ }
       }
 
-      // If I already submitted (e.g. came back to same code), or both done → result
       if (s.ready) { setStage('done'); return; }
       const isCreator = s.a_user_id === session.userId;
       if ((isCreator && s.a_done) || (!isCreator && s.b_done)) {
         setStage('waiting');
       } else {
-        setStage('wizard');
+        setStage('choice');
       }
     } catch (e) {
       setError((e as Error).message);
@@ -74,7 +68,7 @@ export function JoinPage() {
     }
   };
 
-  const submitAnswers = async (answers: Answers) => {
+  const submit = async (answers: Answers) => {
     if (!session || !data) return;
     setBusy(true); setError(null);
     try {
@@ -107,6 +101,9 @@ export function JoinPage() {
   }
 
   if (stage === 'waiting' && data) {
+    const isCreator = data.a_user_id === session?.userId;
+    const myDone = isCreator ? data.a_done : data.b_done;
+    const partnerDone = isCreator ? data.b_done : data.a_done;
     return (
       <div>
         <p className="mb-2 text-[11px] uppercase tracking-widest text-ink-3">Waiting</p>
@@ -117,18 +114,40 @@ export function JoinPage() {
         <div className="rounded-3xl border border-line bg-paper p-6 text-center">
           <p className="text-[11px] uppercase tracking-widest text-ink-3 mb-2">방 코드</p>
           <div className="font-mono text-2xl font-bold tracking-[0.25em] text-terracotta">{data.code}</div>
-          <div className="mt-6 flex items-center justify-center gap-2 text-sm text-ink-3">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-terracotta" />
-            <span>A {data.a_done ? '✓' : '...'} &nbsp;·&nbsp; B {data.b_done ? '✓' : '...'}</span>
+          <div className="mt-6 flex items-center justify-center gap-3 text-sm">
+            <Status label="나" done={myDone} />
+            <span className="text-ink-3">·</span>
+            <Status label="파트너" done={partnerDone} />
           </div>
         </div>
       </div>
     );
   }
 
-  if (stage === 'wizard') return <AnswersWizard onComplete={submitAnswers} title={`Code ${code}`} />;
+  if (stage === 'choice' && data) {
+    return (
+      <ModeChoice
+        title={`Code ${code}`}
+        onChoose={(m) => { setMode(m); setStage('wizard'); }}
+        onBack={() => setStage('enter')}
+      />
+    );
+  }
 
-  // enter (default)
+  if (stage === 'wizard' && data) {
+    const isCreator = data.a_user_id === session?.userId;
+    const partnerDone = isCreator ? data.b_done : data.a_done;
+    return (
+      <AnswersWizard
+        mode={mode}
+        title={`Code ${code}`}
+        onComplete={submit}
+        onBack={() => setStage('choice')}
+        partner={{ done: partnerDone, myDone: false }}
+      />
+    );
+  }
+
   return (
     <div>
       <p className="mb-2 text-[11px] uppercase tracking-widest text-ink-3">Join</p>
@@ -151,5 +170,14 @@ export function JoinPage() {
         다음
       </button>
     </div>
+  );
+}
+
+function Status({ label, done }: { label: string; done: boolean }) {
+  return (
+    <span className={`inline-flex items-center gap-1.5 ${done ? 'text-terracotta font-semibold' : 'text-ink-3'}`}>
+      <span className={`h-1.5 w-1.5 rounded-full ${done ? 'bg-terracotta' : 'bg-ink-3 animate-pulse'}`} />
+      {label} {done ? '✓' : '...'}
+    </span>
   );
 }
